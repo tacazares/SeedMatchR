@@ -4,6 +4,8 @@
 # SeedMatchR
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/tacazares/SeedMatchR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tacazares/SeedMatchR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of SeedMatchR is to help users identify potential seed-mediated
@@ -15,8 +17,9 @@ You can install the development version of SeedMatchR from
 [GitHub](https://github.com/) or the stable build from CRAN.
 
 ``` r
-# Install from CRAN: Maybe one day
-install.packages("SeedMatchR")
+# Install from GitHub
+install.packages("devtools")
+devtools::install_github("tacazares/SeedMatchR")
 ```
 
 ## Quick start example with public siRNA data

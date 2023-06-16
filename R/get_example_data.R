@@ -1,8 +1,10 @@
 #' Download example DESeq2 data from GEO
-#' @description This function will download 3 files from GEO that can be used as toy datasets for SeedMatchR.
+#' @description This function will download data that can be used  for SeedMatchR.
+#' Choosing 'sirna' will download 3 DESeq2 results files from GSE184929. Choosing
+#' 'mirna' will download the miRDB database as a tsv.
 #'
 #' @param example.type Name of the example to load. Options: sirna, mirna
-#' @return \value{None}
+#' @return None
 #' @export
 #'
 #' @examplesIf interactive()

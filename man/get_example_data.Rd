@@ -9,8 +9,13 @@ get_example_data(example.type)
 \arguments{
 \item{example.type}{Name of the example to load. Options: sirna, mirna}
 }
+\value{
+None
+}
 \description{
-This function will download 3 files from GEO that can be used as toy datasets for SeedMatchR.
+This function will download data that can be used  for SeedMatchR.
+Choosing 'sirna' will download 3 DESeq2 results files from GSE184929. Choosing
+'mirna' will download the miRDB database as a tsv.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

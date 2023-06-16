@@ -9,6 +9,9 @@ load_example_data(example.type)
 \arguments{
 \item{example.type}{Name of the example to load. Options: sirna, mirna}
 }
+\value{
+Loads either the Schlegel 2022 RNAseq data or miRDB into the environment.
+}
 \description{
 Load example DESeq2 data into the environment
 }
