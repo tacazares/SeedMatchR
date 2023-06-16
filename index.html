@@ -94,15 +94,16 @@
 <div class="page-header"><h1 id="seedmatchr">SeedMatchR<a class="anchor" aria-label="anchor" href="#seedmatchr"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- badges: end -->
+
 <p>The goal of SeedMatchR is to help users identify potential seed-mediated effects in their RNAseq data.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of SeedMatchR from <a href="https://github.com/" class="external-link">GitHub</a> or the stable build from CRAN.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install from CRAN: Maybe one day</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"SeedMatchR"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Install from GitHub</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tacazares/SeedMatchR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="quick-start-example-with-public-sirna-data">Quick start example with public siRNA data<a class="anchor" aria-label="anchor" href="#quick-start-example-with-public-sirna-data"></a>
@@ -277,7 +278,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/tacazares/SeedMatchR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tacazares/SeedMatchR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
