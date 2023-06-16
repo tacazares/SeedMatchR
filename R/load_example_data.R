@@ -1,6 +1,7 @@
 #' Load example DESeq2 data into the environment
 #'
 #' @param example.type Name of the example to load. Options: sirna, mirna
+#' @return Loads either the Schlegel 2022 RNAseq data or miRDB into the environment.
 #' @export
 #'
 #' @examplesIf interactive()

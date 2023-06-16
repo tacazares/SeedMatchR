@@ -2,6 +2,7 @@
 #' @description This function will download 3 files from GEO that can be used as toy datasets for SeedMatchR.
 #'
 #' @param example.type Name of the example to load. Options: sirna, mirna
+#' @return \value{None}
 #' @export
 #'
 #' @examplesIf interactive()

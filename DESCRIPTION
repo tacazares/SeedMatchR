@@ -1,5 +1,5 @@
 Package: SeedMatchR
-Title: Find Matches to Canonical siRNA Seeds in Genomic Features
+Title: Find Matches to Canonical SiRNA Seeds in Genomic Features
 Version: 0.0.0.9000
 Authors@R: 
     c(person("Tareian", "Cazares", , "tareian.cazares@lilly.com", role = c("aut", "cre"),
@@ -13,12 +13,12 @@ Description: On-target gene knockdown using siRNA ideally results from binding
     strand, called a seed region, bind the 3’ untranslated regions of mRNA, 
     causing reduced translation. Experiments using siRNA knockdown paired with 
     RNA-seq can be used to detect siRNA sequences with potential off-target 
-    effects driven by the seed region. SeedMatchR provides tools for exploring 
+    effects driven by the seed region. 'SeedMatchR' provides tools for exploring 
     and detecting potential seed-mediated off-target effects of siRNA in RNA-seq 
-    experiments. SeedMatchR is designed to extend current differential 
-    expression analysis tools, such as DESeq2, by annotating results with 
+    experiments. 'SeedMatchR' is designed to extend current differential 
+    expression analysis tools, such as 'DESeq2', by annotating results with 
     predicted seed matches. Using publicly available data, we demonstrate the 
-    ability of SeedMatchR to detect cumulative changes in differential gene 
+    ability of 'SeedMatchR' to detect cumulative changes in differential gene 
     expression attributed to siRNA seed regions. 
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -51,5 +51,4 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
 LazyData: true
-URL: https://turbo-adventure-19v5gn5.pages.github.io/,
-    https://tacazares.github.io/SeedMatchR/
+URL: https://tacazares.github.io/SeedMatchR/
