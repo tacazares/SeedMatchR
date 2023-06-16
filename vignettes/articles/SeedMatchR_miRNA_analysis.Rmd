@@ -1,0 +1,199 @@
+---
+title: "Exploring perturbation of miRNA pathways by siRNA knockdown using SeedMatchR"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE
+)
+```
+
+In this example we will use a few `SeedMatchR` functions to examine changes in expression profiles of miRNA target genes. We will use miRDB as our source of miRNA targets. 
+
+## Installation
+
+You can install the development version of SeedMatchR from [GitHub](https://github.com/) or the stable build from CRAN.
+
+``` {r eval = FALSE}
+# Install from CRAN: Maybe one day
+install.packages("SeedMatchR")
+```
+
+```{r}
+library(SeedMatchR)
+```
+
+## Load example data
+
+This example uses the siRNA sequence, D1, targeting the Ttr gene in rat liver from the publication:
+
+    Schlegel MK, Janas MM, Jiang Y, Barry JD, Davis W, Agarwal S, Berman D, Brown CR, Castoreno A, LeBlanc S, Liebow A, Mayo T, Milstein S, Nguyen T, Shulga-Morskaya S, Hyde S, Schofield S, Szeto J, Woods LB, Yilmaz VO, Manoharan M, Egli M, Charissé K, Sepp-Lorenzino L, Haslett P, Fitzgerald K, Jadhav V, Maier MA. From bench to bedside: Improving the clinical safety of GalNAc-siRNA conjugates using seed-pairing destabilization. Nucleic Acids Res. 2022 Jul 8;50(12):6656-6670. doi: 10.1093/nar/gkac539. PMID: 35736224; PMCID: PMC9262600.
+
+The guide sequence of interest is 23 bp long and oriented 5' -\> 3'.
+
+```{r}
+# siRNA sequence of interest targeting a 23 bp region of the Ttr gene
+guide.seq = "UUAUAGAGCAAGAACACUGUUUU"
+```
+
+#### Download data (only need to perform once, can skip to loading if done)
+
+We start by downloading the example data set. This function will download three files from the GEO accession [GSE184929](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184929). These files represent three samples with different siRNA treatments at two dosages. 
+
+```{r echo = T, results = 'hide', message=FALSE, warning=FALSE, error=FALSE}
+get_example_data("mirna")
+get_example_data("sirna")
+```
+
+#### Load example data
+
+We can load the example data into the environment.
+
+```{r}
+load_example_data("mirna")
+load_example_data("sirna")
+```
+
+The DESeq2 results are available through the names `Schlegel_2022_Ttr_D1_30mkg`, `Schlegel_2022_Ttr_D4_30mkg` and `Schlegel_2022_Ttr_D1_10mkg`. The data set name is long, so it will be renamed to `res`.
+
+```{r}
+res <- Schlegel_2022_Ttr_D1_10mkg
+
+# Filter DESeq2 results for SeedMatchR
+res = filter_deseq(res, fdr.cutoff=1, fc.cutoff=0, rm.na.log2fc = T)
+```
+
+## Load Annotations
+
+We will next load the annotations for rat. This step is further described in the vignette.
+
+```{r echo = T, results = 'hide', message=FALSE, warning=FALSE, error=FALSE}
+# Load the species specific annotation database object
+anno.db <- load_species_anno_db("rat")
+
+# Load the specific features and sequences of interest
+features = get_feature_seqs(anno.db$tx.db, anno.db$dna, feature.type = "3UTR")
+```
+
+## Search features for seed matches
+
+```{r}
+res = SeedMatchR(res, anno.db$gtf, features$seqs, guide.seq, "mer7m8")
+
+head(res)
+```
+
+## Preparing miRDB for use with SeedMatchR
+
+The `miRDB` database is used to identify mRNA that are predicted to be targets of miRNA. We download the latest version of miRDB from the website and modify the data to include information for gene symbol, ENTREZ ID, and ENSEMBL ID. We use the `org.Rn.eg.db` data package to access species specific annotation information for ENSEMBL. 
+
+### Download miRDB (only needs to be performed once, can skip to loading if done)
+
+```{r}
+get_example_data("mirna")
+```
+
+### Load miRDB into the environment
+
+```{r}
+load_example_data("mirna")
+
+mirdb.rat = mirdb[mirdb$species == "rno",]
+
+head(mirdb.rat)
+```
+
+### Map ENSEMBL names
+
+Since the names of the target genes are in REFSEQ format, we will use the R package `org.Rn.eg.db` to help map REFSEQ IDs to ENSEMBL IDs. 
+
+```{r}
+
+library(org.Rn.eg.db)
+library(dplyr)
+
+# Create the annotation database based on refseq, ensembl, and gene symbol annotations
+mir.targets = AnnotationDbi::select(org.Rn.eg.db,
+                                      keys = mirdb.rat[,2],
+                                      keytype ="REFSEQ",
+                                      columns=c("ENSEMBL", "SYMBOL", "ENTREZID"),
+                                      multiVals="list")
+
+  # Find the IDs as as ENSEMBL IDs and return as a list
+mir.targ.ens <- mir.targets %>%
+    group_by(REFSEQ) %>%
+    summarise(ENSEMBL_ID = toString(unique(ENSEMBL)))
+
+# Match the IDs for ENSEMBL
+ref2ens <- mir.targ.ens$ENSEMBL_ID[match(mirdb.rat$target.REFSEQ.ID,
+                                           mir.targ.ens$REFSEQ)]
+
+# Bind the new columns
+mirdb.rat = cbind(mirdb.rat, ref2ens)
+```
+
+## Finding miRNA target genes based on miRNA expression data
+
+If you have smallRNAseq expression data, you can use it to decide which miRNA are potentially expressed in your system. If not, you can follow the below approach to identify public small RNAseq experiments and generate a list of top expressed microRNA. 
+
+### Public rat liver small RNA expression data
+
+Here is an example of looking at miRNA expression data from 6 week old female rat liver in baseline conditions. This data was collected from the GEO accession [GSE172269](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE172269). There are four replicates GSM5251324, GSM5251325, GSM5251326, GSM5251327. 
+
+In this case, we work with the normalized counts data. We take the average across all replicates in the group to find the average miRNA expression. Then we sort the list by highest expressed miRNA. You can then choose a cutoff based off of expression, rank, or some combination of the two. This data is provided as a data object called `GSE172269_F_Lvr_6wks_miRNA`.
+
+```{r}
+top_10 = c("rno-miR-192-5p", "rno-miR-22-3p", "rno-miR-148a-3p", "rno-miR-10a-5p", "rno-miR-26a-5p", "rno-miR-21-5p", "rno-miR-143-3p", "rno-miR-27b-3p", "rno-miR-191a-5p", "rno-miR-122-5p")
+
+# subset the database according to the miRNA of interest and the target score
+mir.targets.score90 = mirdb.rat$ref2ens[mirdb.rat[,"miRDB.ID"] %in% top_10 & mirdb.rat[,3]>= 90]
+
+# Remove any NA values
+mir.targets.score90 = mir.targets.score90[!is.na(mir.targets.score90)]
+
+# unlist the string list of names
+mir.targets.score90 = unique(unlist(lapply(mir.targets.score90,
+                                         stringr::str_split,
+                                         ", ")))
+
+```
+
+## ECDF for log2(FoldChange) of miRNA targets compared to genes with seed matches
+
+In this analysis we will compare genes with a `mer7m8` seed match to those that are targets of miRNA expression in the DESeq2 experiments. We will also have a third group that compares the shared gene targets of the siRNA and miRNA. 
+
+```{r fig.height=5, fig.width=10, out.retina=1}
+# Set of genes that are specific to mer7m8 seed matches
+mer7m8.list = res$gene_id[res$mer7m8 >= 1 & !(res$gene_id %in% mir.targets.score90)]
+
+# Set of genes that are specific to seed and miRNA
+seed_and_mir = res$gene_id[res$mer7m8 >= 1 & res$gene_id %in% mir.targets.score90]
+
+# Set of genes that is specific to miRNA only
+mir.targets = mir.targets.score90[!mir.targets.score90 %in% seed_and_mir]
+
+# Generate the background list of genes
+background.list = res$gene_id[!(res$gene_id %in% mer7m8.list) & !(res$gene_id %in% mir.targets) & !(res$gene_id %in% seed_and_mir)]
+  
+ecdf.results = deseq_fc_ecdf(res, 
+                             title = "Ttr D1 30mkg",
+                             list("Background" = background.list, 
+                                  "mer7m8" = mer7m8.list, 
+                                  "Top 10 miRNA" = mir.targets, 
+                                  "Seed and miRNA" = seed_and_mir),
+                             stats.test = "KS", 
+                             factor.order = c("Background", 
+                                              "mer7m8", 
+                                              "Top 10 miRNA", 
+                                              "Seed and miRNA"), 
+                             null.name = "Background",
+                             target.name = "Top 10 miRNA")
+
+ecdf.results$plot
+```
+
+```{r}
+sessionInfo() 
+```
