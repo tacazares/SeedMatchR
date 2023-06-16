@@ -51,4 +51,5 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
 LazyData: true
-URL: https://turbo-adventure-19v5gn5.pages.github.io/
+URL: https://turbo-adventure-19v5gn5.pages.github.io/,
+    https://tacazares.github.io/SeedMatchR/

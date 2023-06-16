@@ -17,8 +17,9 @@ In this example we will use a few `SeedMatchR` functions to examine changes in e
 You can install the development version of SeedMatchR from [GitHub](https://github.com/) or the stable build from CRAN.
 
 ``` {r eval = FALSE}
-# Install from CRAN: Maybe one day
-install.packages("SeedMatchR")
+# Install from GitHub
+install.packages("devtools")
+devtools::install_github("tacazares/SeedMatchR")
 ```
 
 ```{r}
