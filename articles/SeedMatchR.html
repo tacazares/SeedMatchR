@@ -195,14 +195,15 @@ two dosages.</p>
 </h4>
 <p>We can load the example data into the environment.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sirna.data</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Example data directory being created at: /tmp/Rtmp8WHEhQ</span></span></code></pre></div>
 <p>The DESeq2 results are available through the names
 <code>Schlegel_2022_Ttr_D1_30mkg</code>,
 <code>Schlegel_2022_Ttr_D4_30mkg</code> and
 <code>Schlegel_2022_Ttr_D1_10mkg</code>. The data set name is long, so
 it will be renamed to <code>res</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">Schlegel_2022_Ttr_D1_30mkg</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">sirna.data</span><span class="op">$</span><span class="va">Schlegel_2022_Ttr_D1_30mkg</span></span></code></pre></div>
 <p>The DESeq2 results file is then filtered. The function
 <code><a href="../reference/filter_deseq.html">filter_deseq()</a></code> can be used to filter a results file by
 log2FoldChange, padj, baseMean, and remove NA entries.</p>
@@ -462,7 +463,7 @@ results data frame.</p>
 <span>                             factor.order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Background"</span>, <span class="st">"mer8"</span>, <span class="st">"mer7m8"</span><span class="op">)</span>, </span>
 <span>                             null.name <span class="op">=</span> <span class="st">"Background"</span>,</span>
 <span>                             target.name <span class="op">=</span> <span class="st">"mer8"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Comparing: Background vs. mer8"</span></span>
+<span><span class="co">#&gt; Comparing: Background vs. mer8</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
@@ -502,7 +503,7 @@ RNA effects<a class="anchor" aria-label="anchor" href="#using-seedmatchr-to-expl
 <span>                             null.name <span class="op">=</span> <span class="st">"Background"</span>,</span>
 <span>                             target.name <span class="op">=</span> <span class="st">"Promoter w/ mer7m8"</span>,</span>
 <span>                             palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"#d35400"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Comparing: Background vs. Promoter w/ mer7m8"</span></span>
+<span><span class="co">#&gt; Comparing: Background vs. Promoter w/ mer7m8</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
@@ -542,7 +543,7 @@ RNA effects<a class="anchor" aria-label="anchor" href="#using-seedmatchr-to-expl
 <span><span class="co">#&gt;   [3] magrittr_2.0.3                farver_2.1.1                 </span></span>
 <span><span class="co">#&gt;   [5] rmarkdown_2.22                fs_1.6.2                     </span></span>
 <span><span class="co">#&gt;   [7] BiocIO_1.10.0                 zlibbioc_1.46.0              </span></span>
-<span><span class="co">#&gt;   [9] ragg_1.2.5                    vctrs_0.6.2                  </span></span>
+<span><span class="co">#&gt;   [9] ragg_1.2.5                    vctrs_0.6.3                  </span></span>
 <span><span class="co">#&gt;  [11] memoise_2.0.1                 Rsamtools_2.16.0             </span></span>
 <span><span class="co">#&gt;  [13] RCurl_1.98-1.12               ggtree_3.8.0                 </span></span>
 <span><span class="co">#&gt;  [15] R4RNA_1.28.0                  htmltools_0.5.5              </span></span>

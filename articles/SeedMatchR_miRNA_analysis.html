@@ -110,23 +110,22 @@ download three files from the GEO accession <a href="https://www.ncbi.nlm.nih.go
 These files represent three samples with different siRNA treatments at
 two dosages.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_example_data.html">get_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/get_example_data.html">get_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_example_data.html">get_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="load-example-data-1">Load example data<a class="anchor" aria-label="anchor" href="#load-example-data-1"></a>
 </h4>
 <p>We can load the example data into the environment.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sirna.data</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Example data directory being created at: /tmp/Rtmp7T0RCi</span></span></code></pre></div>
 <p>The DESeq2 results are available through the names
 <code>Schlegel_2022_Ttr_D1_30mkg</code>,
 <code>Schlegel_2022_Ttr_D4_30mkg</code> and
 <code>Schlegel_2022_Ttr_D1_10mkg</code>. The data set name is long, so
 it will be renamed to <code>res</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">Schlegel_2022_Ttr_D1_10mkg</span></span>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">sirna.data</span><span class="op">$</span><span class="va">Schlegel_2022_Ttr_D1_10mkg</span></span>
 <span></span>
 <span><span class="co"># Filter DESeq2 results for SeedMatchR</span></span>
 <span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="../reference/filter_deseq.html">filter_deseq</a></span><span class="op">(</span><span class="va">res</span>, fdr.cutoff<span class="op">=</span><span class="fl">1</span>, fc.cutoff<span class="op">=</span><span class="fl">0</span>, rm.na.log2fc <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
@@ -181,14 +180,15 @@ if done)<a class="anchor" aria-label="anchor" href="#download-mirdb-only-needs-t
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_example_data.html">get_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in dir.create(data.path, recursive = TRUE):</span></span>
-<span><span class="co">#&gt; '/home/runner/.local/share/R/SeedMatchR' already exists</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in dir.create(data.path, recursive = TRUE): '/tmp/Rtmp7T0RCi' already</span></span>
+<span><span class="co">#&gt; exists</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="load-mirdb-into-the-environment">Load miRDB into the environment<a class="anchor" aria-label="anchor" href="#load-mirdb-into-the-environment"></a>
 </h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">mirdb</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Example data directory being created at: /tmp/Rtmp7T0RCi</span></span>
 <span></span>
 <span><span class="va">mirdb.rat</span> <span class="op">=</span> <span class="va">mirdb</span><span class="op">[</span><span class="va">mirdb</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"rno"</span>,<span class="op">]</span></span>
 <span></span>
@@ -340,7 +340,7 @@ gene targets of the siRNA and miRNA.</p>
 <span>                                              <span class="st">"Seed and miRNA"</span><span class="op">)</span>, </span>
 <span>                             null.name <span class="op">=</span> <span class="st">"Background"</span>,</span>
 <span>                             target.name <span class="op">=</span> <span class="st">"Top 10 miRNA"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Comparing: Background vs. Top 10 miRNA"</span></span>
+<span><span class="co">#&gt; Comparing: Background vs. Top 10 miRNA</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
@@ -380,7 +380,7 @@ gene targets of the siRNA and miRNA.</p>
 <span><span class="co">#&gt;   [5] magrittr_2.0.3                matrixStats_1.0.0            </span></span>
 <span><span class="co">#&gt;   [7] compiler_4.3.1                RSQLite_2.3.1                </span></span>
 <span><span class="co">#&gt;   [9] GenomicFeatures_1.52.0        png_0.1-8                    </span></span>
-<span><span class="co">#&gt;  [11] systemfonts_1.0.4             vctrs_0.6.2                  </span></span>
+<span><span class="co">#&gt;  [11] systemfonts_1.0.4             vctrs_0.6.3                  </span></span>
 <span><span class="co">#&gt;  [13] stringr_1.5.0                 pkgconfig_2.0.3              </span></span>
 <span><span class="co">#&gt;  [15] crayon_1.5.2                  fastmap_1.1.1                </span></span>
 <span><span class="co">#&gt;  [17] dbplyr_2.3.2                  XVector_0.40.0               </span></span>
