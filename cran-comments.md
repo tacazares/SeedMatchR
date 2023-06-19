@@ -1,10 +1,6 @@
-## R CMD check results
+## Resubmission
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
-
-## Initial CRAN recommendations
+### 06/19/2023 - Addressing Initial CRAN Recommendations
 
 > If there are references describing the methods in your package, please
 > add these in the description field of your DESCRIPTION file in the form
@@ -16,7 +12,7 @@
 > auto-linking. (If you want to add a title as well please put it in
 > quotes: "Title")
 
-There are no references to add.
+* There are no references to add.
 
 > You write information messages to the console that cannot be easily
 > suppressed. -> R/deseq_fc_ecdf.R; R/get_feature_seqs.R; R/get_seed.R;
@@ -27,7 +23,7 @@ There are no references to add.
 > if(verbose)print(..) (or maybe stop()) if you really have to write text
 > to the console. (except for print, summary, interactive functions)
 
-The `message()` function has replaced `print()` or removed when not necessary. 
+* The `message()` function has replaced `print()` or removed when not necessary. 
 
 > Please ensure that your functions do not write by default or in your
 > examples/vignettes/tests in the user's home filespace (including the
@@ -35,10 +31,16 @@ The `message()` function has replaced `print()` or removed when not necessary.
 > Please omit any default path in writing functions. In your
 > examples/vignettes/tests you can write to tempdir(). -> R/get_example_data.R
 
-The functions now write to a directory that is identified using `tempdir()`. 
+* The functions now write to a directory that is identified using `tempdir()`. 
 
 > Please do not modifiy the .GlobalEnv. This is not allowed by the CRAN
 > policies. -> R/load_example_data.R
 
-Variables are now returned to the user instead of adding them to `.GlobalEnv`.
+* Variables are now returned instead of adding them to `.GlobalEnv`.
+
+## R CMD check results
+
+0 errors | 0 warnings | 1 note
+
+* This is a new release.
 
