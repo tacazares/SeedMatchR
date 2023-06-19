@@ -83,7 +83,7 @@ get_example_data("sirna")
 We can load the example data into the environment.
 
 ``` r
-load_example_data("sirna")
+sirna.data = load_example_data("sirna")
 ```
 
 The DESeq2 results are available through the names
@@ -92,7 +92,7 @@ The DESeq2 results are available through the names
 renamed to `res`.
 
 ``` r
-res <- Schlegel_2022_Ttr_D1_30mkg
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
 ```
 
 #### Filter example results
@@ -198,7 +198,7 @@ ecdf.results = deseq_fc_ecdf(res,
                                               "mer7m8"), 
                              null.name = "Background",
                              target.name = "mer7m8")
-#> [1] "Comparing: Background vs. mer7m8"
+#> Comparing: Background vs. mer7m8
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ecdf.results$plot

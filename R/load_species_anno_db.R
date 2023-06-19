@@ -20,27 +20,22 @@
 load_species_anno_db <- function(species.name, remove.na.rows = TRUE){
   # Load annotation hub
   ah <- AnnotationHub::AnnotationHub()
-  print(species.name)
 
+  message(paste0("Loading annotation data for ", species.name))
+  
   if (species.name == "human") {
-    print("Loading GTF")
     gtf <- ah[["AH98495"]]
 
-    print("Loading DNA")
     dna <- ah[["AH99541"]]
 
   } else if (species.name == "rat") {
-    print("Loading GTF")
     gtf <- ah[["AH92420"]]
 
-    print("Loading DNA")
     dna <- ah[["AH93578"]]
 
   } else if (species.name == "mouse") {
-    print("Loading GTF")
     gtf <- ah[["AH7567"]]
 
-    print("Loading DNA")
     dna <- ah[["AH49773"]]
 
   } else {

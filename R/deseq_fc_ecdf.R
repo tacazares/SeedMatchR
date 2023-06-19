@@ -62,7 +62,9 @@
 #' # Load test data
 #' get_example_data("sirna")
 #'
-#' load_example_data("sirna")
+#' sirna.data = load_example_data("sirna")
+#'
+#' res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
 #'
 #' # Filter DESeq2 results for SeedMatchR
 #' res = filter_deseq(res, fdr.cutoff=1, fc.cutoff=0, rm.na.log2fc = TRUE)
@@ -127,7 +129,7 @@ deseq_fc_ecdf <- function(res,
   # Create legend labels with counts
   legend.labels = paste0(factor.order, ": ", gene.counts)
 
-  print(paste0("Comparing: ", null.name, " vs. ", target.name))
+  message(paste0("Comparing: ", null.name, " vs. ", target.name))
 
   # Use a stats test to determine significance
   test.results = ecdf_stat_test(res,

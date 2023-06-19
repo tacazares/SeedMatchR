@@ -7,15 +7,23 @@
 #' @examplesIf interactive()
 #' load_example_data()
 load_example_data <- function(example.type){
-  data.path = tools::R_user_dir("SeedMatchR", "data")
+  data.path = tempdir()
+
+  message(paste0("Example data directory being created at: ", data.path))
 
   sirna.path = paste0(data.path, "/Schlegel_2022.Rdata")
   mirna.path = paste0(data.path, "/mirdb.Rdata")
 
   if (example.type == "sirna") {
-         load(sirna.path, envir = .GlobalEnv)
+         ex.data = load(sirna.path)
+
+         return(mget(ex.data))
+
     } else if (example.type == "mirna") {
-         load(mirna.path, envir = .GlobalEnv)
+         ex.data = load(mirna.path)
+
+         return(get(ex.data))
+
     } else {
       stop("Invalid option. Options: sirna, mirna")
     }

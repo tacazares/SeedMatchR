@@ -4,13 +4,13 @@
 #' 'mirna' will download the miRDB database as a tsv.
 #'
 #' @param example.type Name of the example to load. Options: sirna, mirna
-#' @return None
+#' @return None?
 #' @export
 #'
 #' @examplesIf interactive()
 #' get_example_data()
 get_example_data <- function(example.type){
-  data.path = tools::R_user_dir("SeedMatchR", "data")
+  data.path = tempdir()
 
   dir.create(data.path, recursive = TRUE)
 

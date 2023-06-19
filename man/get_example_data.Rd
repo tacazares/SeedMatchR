@@ -10,7 +10,7 @@ get_example_data(example.type)
 \item{example.type}{Name of the example to load. Options: sirna, mirna}
 }
 \value{
-None
+None?
 }
 \description{
 This function will download data that can be used  for SeedMatchR.

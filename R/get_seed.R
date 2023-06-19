@@ -65,7 +65,7 @@ get_seed <- function(guide.seq, seed.name = "mer7m8", start.pos = 1, stop.pos = 
          seed.target.seq = Biostrings::DNAString(seed.target.seq)
 
     } else {
-         print(paste0("No seed definition selected. Setting name as: ",
+         message(paste0("No seed definition selected. Setting name as: ",
                       seed.name,
                       ". Using g",
                       start.pos,

@@ -43,7 +43,7 @@ get_feature_seqs <- function(tx.db, dna, feature.type="3UTR"){
     feature.db = GenomicFeatures::cdsBy(tx.db, by="tx", use.names=TRUE)
 
   } else {
-    print("You have failed to choose a valid option.")
+    warning("You have failed to choose a valid option.")
   }
 
   # Extract the 3p utr sequences for each transcript

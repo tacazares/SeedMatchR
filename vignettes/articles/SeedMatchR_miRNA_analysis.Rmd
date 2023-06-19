@@ -44,7 +44,6 @@ guide.seq = "UUAUAGAGCAAGAACACUGUUUU"
 We start by downloading the example data set. This function will download three files from the GEO accession [GSE184929](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184929). These files represent three samples with different siRNA treatments at two dosages. 
 
 ```{r echo = T, results = 'hide', message=FALSE, warning=FALSE, error=FALSE}
-get_example_data("mirna")
 get_example_data("sirna")
 ```
 
@@ -53,14 +52,13 @@ get_example_data("sirna")
 We can load the example data into the environment.
 
 ```{r}
-load_example_data("mirna")
-load_example_data("sirna")
+sirna.data = load_example_data("sirna")
 ```
 
 The DESeq2 results are available through the names `Schlegel_2022_Ttr_D1_30mkg`, `Schlegel_2022_Ttr_D4_30mkg` and `Schlegel_2022_Ttr_D1_10mkg`. The data set name is long, so it will be renamed to `res`.
 
 ```{r}
-res <- Schlegel_2022_Ttr_D1_10mkg
+res <- sirna.data$Schlegel_2022_Ttr_D1_10mkg
 
 # Filter DESeq2 results for SeedMatchR
 res = filter_deseq(res, fdr.cutoff=1, fc.cutoff=0, rm.na.log2fc = T)
@@ -99,7 +97,7 @@ get_example_data("mirna")
 ### Load miRDB into the environment
 
 ```{r}
-load_example_data("mirna")
+mirdb = load_example_data("mirna")
 
 mirdb.rat = mirdb[mirdb$species == "rno",]
 

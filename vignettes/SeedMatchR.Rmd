@@ -113,13 +113,13 @@ get_example_data("sirna")
 We can load the example data into the environment.
 
 ```{r}
-load_example_data("sirna")
+sirna.data = load_example_data("sirna")
 ```
 
 The DESeq2 results are available through the names `Schlegel_2022_Ttr_D1_30mkg`, `Schlegel_2022_Ttr_D4_30mkg` and `Schlegel_2022_Ttr_D1_10mkg`. The data set name is long, so it will be renamed to `res`.
 
 ```{r}
-res <- Schlegel_2022_Ttr_D1_30mkg
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
 ```
 
 The DESeq2 results file is then filtered. The function `filter_deseq()` can be used to filter a results file by log2FoldChange, padj, baseMean, and remove NA entries. 
