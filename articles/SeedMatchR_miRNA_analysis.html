@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">SeedMatchR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@ two dosages.</p>
 <p>We can load the example data into the environment.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sirna.data</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"sirna"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Example data directory being created at: /tmp/Rtmp7T0RCi</span></span></code></pre></div>
+<span><span class="co">#&gt; Example data directory being created at: /tmp/RtmpMpUtdQ</span></span></code></pre></div>
 <p>The DESeq2 results are available through the names
 <code>Schlegel_2022_Ttr_D1_30mkg</code>,
 <code>Schlegel_2022_Ttr_D4_30mkg</code> and
@@ -180,7 +180,7 @@ if done)<a class="anchor" aria-label="anchor" href="#download-mirdb-only-needs-t
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_example_data.html">get_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in dir.create(data.path, recursive = TRUE): '/tmp/Rtmp7T0RCi' already</span></span>
+<span><span class="co">#&gt; Warning in dir.create(data.path, recursive = TRUE): '/tmp/RtmpMpUtdQ' already</span></span>
 <span><span class="co">#&gt; exists</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -188,7 +188,7 @@ if done)<a class="anchor" aria-label="anchor" href="#download-mirdb-only-needs-t
 </h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mirdb</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_example_data.html">load_example_data</a></span><span class="op">(</span><span class="st">"mirna"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Example data directory being created at: /tmp/Rtmp7T0RCi</span></span>
+<span><span class="co">#&gt; Example data directory being created at: /tmp/RtmpMpUtdQ</span></span>
 <span></span>
 <span><span class="va">mirdb.rat</span> <span class="op">=</span> <span class="va">mirdb</span><span class="op">[</span><span class="va">mirdb</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"rno"</span>,<span class="op">]</span></span>
 <span></span>
@@ -372,7 +372,7 @@ gene targets of the siRNA and miRNA.</p>
 <span><span class="co">#&gt;  [1] dplyr_1.1.2          org.Rn.eg.db_3.17.0  AnnotationDbi_1.62.1</span></span>
 <span><span class="co">#&gt;  [4] Biobase_2.60.0       rtracklayer_1.60.0   GenomicRanges_1.52.0</span></span>
 <span><span class="co">#&gt;  [7] GenomeInfoDb_1.36.0  IRanges_2.34.0       S4Vectors_0.38.1    </span></span>
-<span><span class="co">#&gt; [10] BiocGenerics_0.46.0  SeedMatchR_1.0.0    </span></span>
+<span><span class="co">#&gt; [10] BiocGenerics_0.46.0  SeedMatchR_1.0.1    </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;   [1] DBI_1.1.3                     bitops_1.0-7                 </span></span>
