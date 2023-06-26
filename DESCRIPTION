@@ -4,6 +4,8 @@ Version: 1.0.1.9000
 Authors@R: 
     c(person("Tareian", "Cazares", , "tareian.cazares@lilly.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4624-6156")),
+      person("Gulcin", "Ozer", , "ozer_gulcin@lilly.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8315-8051")),
       person("Eli Lilly and Company", role = c("cph")))
 Description: On-target gene knockdown using siRNA ideally results from binding 
     fully complementary regions in mRNA transcripts to induce cleavage. 
