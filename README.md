@@ -197,9 +197,9 @@ ecdf.results = deseq_fc_ecdf(res,
                              factor.order = c("Background", 
                                               "mer7m8"), 
                              null.name = "Background",
-                             target.name = "mer7m8")
+                             target.name = "mer7m8", 
+                             alternative = "greater")
 #> Comparing: Background vs. mer7m8
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ecdf.results$plot
 ```

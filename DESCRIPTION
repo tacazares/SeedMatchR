@@ -1,6 +1,6 @@
 Package: SeedMatchR
 Title: Find Matches to Canonical SiRNA Seeds in Genomic Features
-Version: 1.0.1.9000
+Version: 1.1.0
 Authors@R: 
     c(person("Tareian", "Cazares", , "tareian.cazares@lilly.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4624-6156")),
@@ -38,20 +38,17 @@ Config/testthat/edition: 3
 Imports: 
     dplyr,
     Biostrings,
-    DESeq2,
     ggmsa,
-    msa (>= 1.4.3),
+    msa,
     ggplot2,
     utils,
     AnnotationHub,
     GenomeInfoDb,
     GenomicFeatures,
-    twosamples,
     cowplot,
     testit,
     lifecycle,
     stringr,
-    tools,
     stats
 VignetteBuilder: knitr
 Depends: 

@@ -144,7 +144,7 @@ Required Inputs:
 -   `res`: DESeq2 results data frame
 -   `gene.lists`: A list of lists containing gene names
 
-```{r fig.height=5, fig.width=10, out.retina=1}
+```{r fig.height=5, fig.width=5, out.retina=1}
 # Gene set 1 
 mer7m8.list = res$gene_id[res$mer7m8 >= 1]
 
@@ -158,7 +158,8 @@ ecdf.results = deseq_fc_ecdf(res,
                              factor.order = c("Background", 
                                               "mer7m8"), 
                              null.name = "Background",
-                             target.name = "mer7m8")
+                             target.name = "mer7m8", 
+                             alternative = "greater")
 
 ecdf.results$plot
 

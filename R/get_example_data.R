@@ -12,6 +12,8 @@
 get_example_data <- function(example.type){
   data.path = tempdir()
 
+  message(paste0("Example data directory being created at: ", data.path))
+
   dir.create(data.path, recursive = TRUE)
 
   if (example.type == "sirna"){

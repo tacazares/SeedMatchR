@@ -2,7 +2,7 @@
 % Please edit documentation in R/deseq_fc_ecdf.R
 \name{deseq_fc_ecdf}
 \alias{deseq_fc_ecdf}
-\title{Plot the ecdf for DESeq2 log2 Fold Changes}
+\title{Plot the ECDF for DESeq2 log2(Fold Changes)}
 \usage{
 deseq_fc_ecdf(
   res,
@@ -13,13 +13,11 @@ deseq_fc_ecdf(
   factor.order = NULL,
   x.lims = c(-1, 1),
   stats.test = NULL,
-  nboots = 10000,
+  alternative = "greater",
   null.name = 1,
   target.name = 2,
-  keep.boots = TRUE,
-  plot.hist = TRUE,
   height = 5,
-  width = 10,
+  width = 5,
   dpi = 320
 )
 }
@@ -44,17 +42,11 @@ saved.}
 \item{stats.test}{The statistic test to use. Options: KS, Kuiper, DTS, CVM,
 AD, Wass}
 
-\item{nboots}{The number of iterations to run the simulation}
+\item{alternative}{The alternative hypothesis to test. Options: greater, less, two.sided}
 
 \item{null.name}{The name in the gene.list to use as the null for ecdf plots}
 
-\item{target.name}{The name in the gene.list to use as the target for ecdf}
-
-\item{keep.boots}{Whether to keep the results from the boot strapping
-analysis}
-
-\item{plot.hist}{Whether to plot the histogram of dstats derived from boost
-strap analysis. Keep.boots must be TRUE.}
+\item{target.name}{The name in the gene.list to use as the target for ecdf plots}
 
 \item{height}{Plot height in inches}
 
@@ -63,7 +55,7 @@ strap analysis. Keep.boots must be TRUE.}
 \item{dpi}{The dpi resolution for the figure}
 }
 \value{
-A ggplot object of the ecdf
+A ggplot object for the ECDF plot
 }
 \description{
 This functions will take DESeq2 results as a \code{data.frame} and
@@ -75,9 +67,8 @@ Example:
 
 \code{gene.lists = list("Background" = c("gene1", "gene2"), "Target" = c("gene2", "gene3"), "Overlap" = c("gene2"))}
 
-This function will also perform statistical testing using the the
-\code{twosamples} package if \code{plot.hist} is TRUE. The output will be saved to a
-PDF if an \code{output.filename} is provided.
+This function will also perform statistical testing if \code{plot.hist} is TRUE.
+The output will be saved to a PDF if an \code{output.filename} is provided.
 
 Users can define the groups that are to be compared in the statistical test
 using the \code{null.name} and \code{target.name} arguments. The names must be found
@@ -87,7 +78,7 @@ analysis.
 This functions returns:
 \itemize{
 \item \verb{$plot}: The ECDF plot
-\item \verb{$stats}: The twosamples results object
+\item \verb{$stats}: The stats results object
 }
 }
 \examples{
@@ -123,7 +114,6 @@ list("Background" = background.list, "mer7m8" = mer7m8.list),
 stats.test = "KS",
 factor.order = c("Background", "mer7m8"),
 null.name = "Background",
-target.name = "mer7m8",
-nboots = 100)
+target.name = "mer7m8")
 \dontshow{\}) # examplesIf}
 }

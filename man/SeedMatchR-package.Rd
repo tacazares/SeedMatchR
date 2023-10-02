@@ -18,6 +18,13 @@ Useful links:
 \author{
 \strong{Maintainer}: Tareian Cazares \email{tareian.cazares@lilly.com} (\href{https://orcid.org/0000-0003-4624-6156}{ORCID})
 
+Authors:
+\itemize{
+  \item Gulcin Ozer \email{ozer_gulcin@lilly.com} (\href{https://orcid.org/0000-0002-8315-8051}{ORCID})
+  \item Jibo Wang
+  \item Rick Higgs
+}
+
 Other contributors:
 \itemize{
   \item Eli Lilly and Company [copyright holder]

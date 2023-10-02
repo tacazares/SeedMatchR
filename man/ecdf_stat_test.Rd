@@ -3,15 +3,14 @@
 \name{ecdf_stat_test}
 \alias{ecdf_stat_test}
 \title{Test for differences in log2(Fold Change) ECDFs between two gene lists using
-the \code{twosamples} package}
+the \code{stats} package}
 \usage{
 ecdf_stat_test(
   res,
   gene.list1,
   gene.list2,
   stats.test = "KS",
-  nboots = 10000,
-  keep.boots = TRUE
+  alternative = "greater"
 )
 }
 \arguments{
@@ -21,25 +20,20 @@ ecdf_stat_test(
 
 \item{gene.list2}{Gene list 2: Target set of genes}
 
-\item{stats.test}{Stats test to use. Options: KS, Kuiper, DTS, CVM, AD, Wass}
+\item{stats.test}{Stats test to use. Options: KS or Wilcoxen}
 
-\item{nboots}{Number of bootstraps to use for generating a null}
-
-\item{keep.boots}{Whether to store the boostrap values}
+\item{alternative}{The alternative hypothesis to test. Options: greater, less, two.sided}
 }
 \value{
 A vector containing the dstat and pvalue
 }
 \description{
-This function uses the \code{twosamples} package to test the ECDF
+This function uses the \code{stats} package to test the ECDF
 of log2(Fold Changes) between two groups based on DESeq2 analysis.
 
 The inputs of this function are a DESeq2 results \code{data.frame} and two sets of
 gene IDs called \code{gene.list1} and \code{gene.list2}. The functions will look for a
 column called \code{log2FoldChange} in the dataframe.
-
-The user can choose 1 of 6 tests for comparing the ECDFs of two gene sets.
-Options: \code{KS}, \code{Kuiper}, \code{DTS}, \code{CVM}, \code{AD}, \code{Wass}
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
