@@ -1,5 +1,6 @@
 # SeedMatchR 1.1.0
 
+* Addressed some notes and errors from CRAN check https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/SeedMatchR-00check.html
 * Removed the function `dtat_histogram.R`. This was not needed. We no longer
 perform this bootstrapping method for testing. We use the built-in R functions 
 `ks.test` and `wilcoxen.test`. 

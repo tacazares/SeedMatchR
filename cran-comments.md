@@ -1,5 +1,12 @@
 ## Resubmission
 
+### 10/02/2023 - Addressing Build Issues from CRAN Checks
+
+> We were notified of build errors from the CRAN site, but were not able to 
+address them in time. https://cran.r-project.org/web/packages/SeedMatchR/index.html
+
+These tests are passing through GitHub actions now: https://github.com/tacazares/SeedMatchR/actions/runs/6381425186
+
 ### 06/19/2023 - Addressing Initial CRAN Recommendations
 
 > If there are references describing the methods in your package, please

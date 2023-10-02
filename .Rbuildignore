@@ -9,3 +9,5 @@
 ^README.Rmd
 ^LICENSE.md
 ^cran-comments.md
+^doc$
+^Meta$
