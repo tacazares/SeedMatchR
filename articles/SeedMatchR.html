@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">SeedMatchR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -210,14 +210,12 @@ log2FoldChange, padj, baseMean, and remove NA entries.</p>
 <code class="sourceCode R"><span><span class="co"># Dimensions before filtering</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># [1] 32883    6</span></span>
-<span><span class="co">#&gt; [1] 32883     8</span></span>
 <span></span>
 <span><span class="co"># Filter DESeq2 results for SeedMatchR</span></span>
 <span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="../reference/filter_deseq.html">filter_deseq</a></span><span class="op">(</span><span class="va">res</span>, fdr.cutoff<span class="op">=</span><span class="fl">1</span>, fc.cutoff<span class="op">=</span><span class="fl">0</span>, rm.na.log2fc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dimensions after filtering</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># [1] 13582     8</span></span>
-<span><span class="co">#&gt; [1] 13582     8</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># [1] 13582     8</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -230,49 +228,8 @@ This function assumes that you are using a RNA input.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot the seed sequence options for the siRNA of interest</span></span>
 <span><span class="va">avail.seed.plot</span> <span class="op">=</span> <span class="fu"><a href="../reference/plot_seeds.html">plot_seeds</a></span><span class="op">(</span><span class="va">guide.seq</span><span class="op">)</span></span>
-<span><span class="co">#&gt; use default substitution matrix</span></span>
-<span><span class="co">#&gt; Registered S3 methods overwritten by 'ggalt':</span></span>
-<span><span class="co">#&gt;   method                  from   </span></span>
-<span><span class="co">#&gt;   grid.draw.absoluteGrob  ggplot2</span></span>
-<span><span class="co">#&gt;   grobHeight.absoluteGrob ggplot2</span></span>
-<span><span class="co">#&gt;   grobWidth.absoluteGrob  ggplot2</span></span>
-<span><span class="co">#&gt;   grobX.absoluteGrob      ggplot2</span></span>
-<span><span class="co">#&gt;   grobY.absoluteGrob      ggplot2</span></span>
-<span><span class="co">#&gt; Registered S3 methods overwritten by 'treeio':</span></span>
-<span><span class="co">#&gt;   method              from    </span></span>
-<span><span class="co">#&gt;   MRCA.phylo          tidytree</span></span>
-<span><span class="co">#&gt;   MRCA.treedata       tidytree</span></span>
-<span><span class="co">#&gt;   Nnode.treedata      tidytree</span></span>
-<span><span class="co">#&gt;   Ntip.treedata       tidytree</span></span>
-<span><span class="co">#&gt;   ancestor.phylo      tidytree</span></span>
-<span><span class="co">#&gt;   ancestor.treedata   tidytree</span></span>
-<span><span class="co">#&gt;   child.phylo         tidytree</span></span>
-<span><span class="co">#&gt;   child.treedata      tidytree</span></span>
-<span><span class="co">#&gt;   full_join.phylo     tidytree</span></span>
-<span><span class="co">#&gt;   full_join.treedata  tidytree</span></span>
-<span><span class="co">#&gt;   groupClade.phylo    tidytree</span></span>
-<span><span class="co">#&gt;   groupClade.treedata tidytree</span></span>
-<span><span class="co">#&gt;   groupOTU.phylo      tidytree</span></span>
-<span><span class="co">#&gt;   groupOTU.treedata   tidytree</span></span>
-<span><span class="co">#&gt;   inner_join.phylo    tidytree</span></span>
-<span><span class="co">#&gt;   inner_join.treedata tidytree</span></span>
-<span><span class="co">#&gt;   is.rooted.treedata  tidytree</span></span>
-<span><span class="co">#&gt;   nodeid.phylo        tidytree</span></span>
-<span><span class="co">#&gt;   nodeid.treedata     tidytree</span></span>
-<span><span class="co">#&gt;   nodelab.phylo       tidytree</span></span>
-<span><span class="co">#&gt;   nodelab.treedata    tidytree</span></span>
-<span><span class="co">#&gt;   offspring.phylo     tidytree</span></span>
-<span><span class="co">#&gt;   offspring.treedata  tidytree</span></span>
-<span><span class="co">#&gt;   parent.phylo        tidytree</span></span>
-<span><span class="co">#&gt;   parent.treedata     tidytree</span></span>
-<span><span class="co">#&gt;   root.treedata       tidytree</span></span>
-<span><span class="co">#&gt;   rootnode.phylo      tidytree</span></span>
-<span><span class="co">#&gt;   sibling.phylo       tidytree</span></span>
-<span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
-<span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span>
 <span></span>
 <span><span class="va">avail.seed.plot</span></span></code></pre></div>
-<p><img src="SeedMatchR_files/figure-html/unnamed-chunk-11-1.png" width="960"></p>
 </div>
 <div class="section level3">
 <h3 id="get-the-seed-sequence-of-interest">Get the seed sequence of interest<a class="anchor" aria-label="anchor" href="#get-the-seed-sequence-of-interest"></a>
@@ -285,25 +242,7 @@ the name of the seed.</p>
 <code class="sourceCode R"><span><span class="co"># Get the seed sequence information for the seed of interest</span></span>
 <span><span class="va">seed</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_seed.html">get_seed</a></span><span class="op">(</span><span class="va">guide.seq</span>, <span class="st">"mer7m8"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">seed</span></span>
-<span><span class="co">#&gt; $Guide</span></span>
-<span><span class="co">#&gt; 23-letter RNAString object</span></span>
-<span><span class="co">#&gt; seq: <span style="color: #000000; background-color: #FFFFAF;">UU</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFFFAF;">U</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">AA</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #FFAFAF;">AA</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFFFAF;">U</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #FFFFAF;">UUUU</span></span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Seed.Name</span></span>
-<span><span class="co">#&gt; [1] "mer7m8"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Seed.Seq.RNA</span></span>
-<span><span class="co">#&gt; 7-letter RNAString object</span></span>
-<span><span class="co">#&gt; seq: <span style="color: #000000; background-color: #FFFFAF;">U</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFFFAF;">U</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFFF;">G</span></span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Seed.Seq.DNA</span></span>
-<span><span class="co">#&gt; 7-letter DNAString object</span></span>
-<span><span class="co">#&gt; seq: <span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #AFFFFF;">G</span></span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Target.Seq</span></span>
-<span><span class="co">#&gt; 7-letter DNAString object</span></span>
-<span><span class="co">#&gt; seq: <span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #FFAFAF;">A</span></span></span></code></pre></div>
+<span><span class="va">seed</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="counting-seed-matches-in-transcripts">Counting seed matches in transcripts<a class="anchor" aria-label="anchor" href="#counting-seed-matches-in-transcripts"></a>
@@ -316,21 +255,7 @@ the name of the seed.</p>
 <span>                 <span class="va">features</span><span class="op">$</span><span class="va">seqs</span>, </span>
 <span>                 <span class="va">guide.seq</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt;              gene_id  baseMean log2FoldChange     lfcSE      stat        pvalue</span></span>
-<span><span class="co">#&gt; 1 ENSRNOG00000016275 2138.0945      -8.164615        NA -23.61818 2.507268e-123</span></span>
-<span><span class="co">#&gt; 2 ENSRNOG00000000127  437.6342      -1.346927 0.1068629 -12.60425  2.000712e-36</span></span>
-<span><span class="co">#&gt; 3 ENSRNOG00000047179 1590.1745      -1.262411 0.1031403 -12.23974  1.906387e-34</span></span>
-<span><span class="co">#&gt; 4 ENSRNOG00000030187  131.9206       3.422725 0.3032352  11.28736  1.515189e-29</span></span>
-<span><span class="co">#&gt; 5 ENSRNOG00000008050   38.9921      -3.442834 0.3192776 -10.78320  4.132589e-27</span></span>
-<span><span class="co">#&gt; 6 ENSRNOG00000008816  400.9526       2.794453 0.2661369  10.50006  8.632549e-26</span></span>
-<span><span class="co">#&gt;            padj symbol mer7m8</span></span>
-<span><span class="co">#&gt; 1 3.405371e-119    Ttr      1</span></span>
-<span><span class="co">#&gt; 2  1.358683e-32  Kpna6      0</span></span>
-<span><span class="co">#&gt; 3  8.630849e-31  Aplp2      1</span></span>
-<span><span class="co">#&gt; 4  5.144824e-26  Mmp12      0</span></span>
-<span><span class="co">#&gt; 5  1.122577e-23  Stac3      0</span></span>
-<span><span class="co">#&gt; 6  1.954121e-22  Gpnmb      0</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="match-multiple-seeds">Match multiple seeds<a class="anchor" aria-label="anchor" href="#match-multiple-seeds"></a>
 </h4>
@@ -346,21 +271,7 @@ frame.</p>
 <span>                  seed.name <span class="op">=</span> <span class="va">seed</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt;              gene_id  baseMean log2FoldChange     lfcSE      stat        pvalue</span></span>
-<span><span class="co">#&gt; 1 ENSRNOG00000016275 2138.0945      -8.164615        NA -23.61818 2.507268e-123</span></span>
-<span><span class="co">#&gt; 2 ENSRNOG00000000127  437.6342      -1.346927 0.1068629 -12.60425  2.000712e-36</span></span>
-<span><span class="co">#&gt; 3 ENSRNOG00000047179 1590.1745      -1.262411 0.1031403 -12.23974  1.906387e-34</span></span>
-<span><span class="co">#&gt; 4 ENSRNOG00000030187  131.9206       3.422725 0.3032352  11.28736  1.515189e-29</span></span>
-<span><span class="co">#&gt; 5 ENSRNOG00000008050   38.9921      -3.442834 0.3192776 -10.78320  4.132589e-27</span></span>
-<span><span class="co">#&gt; 6 ENSRNOG00000008816  400.9526       2.794453 0.2661369  10.50006  8.632549e-26</span></span>
-<span><span class="co">#&gt;            padj symbol mer7m8 mer8 mer6 mer7A1</span></span>
-<span><span class="co">#&gt; 1 3.405371e-119    Ttr      1    1    1      1</span></span>
-<span><span class="co">#&gt; 2  1.358683e-32  Kpna6      0    0    0      0</span></span>
-<span><span class="co">#&gt; 3  8.630849e-31  Aplp2      1    0    1      0</span></span>
-<span><span class="co">#&gt; 4  5.144824e-26  Mmp12      0    0    0      0</span></span>
-<span><span class="co">#&gt; 5  1.122577e-23  Stac3      0    0    0      0</span></span>
-<span><span class="co">#&gt; 6  1.954121e-22  Gpnmb      0    0    0      0</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="match-seeds-with-mismatches-and-indels-allowed">Match seeds with mismatches and indels allowed<a class="anchor" aria-label="anchor" href="#match-seeds-with-mismatches-and-indels-allowed"></a>
 </h5>
@@ -384,77 +295,7 @@ argument.</p>
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt;              gene_id  baseMean log2FoldChange     lfcSE      stat        pvalue</span></span>
-<span><span class="co">#&gt; 1 ENSRNOG00000016275 2138.0945      -8.164615        NA -23.61818 2.507268e-123</span></span>
-<span><span class="co">#&gt; 2 ENSRNOG00000000127  437.6342      -1.346927 0.1068629 -12.60425  2.000712e-36</span></span>
-<span><span class="co">#&gt; 3 ENSRNOG00000047179 1590.1745      -1.262411 0.1031403 -12.23974  1.906387e-34</span></span>
-<span><span class="co">#&gt; 4 ENSRNOG00000030187  131.9206       3.422725 0.3032352  11.28736  1.515189e-29</span></span>
-<span><span class="co">#&gt; 5 ENSRNOG00000008050   38.9921      -3.442834 0.3192776 -10.78320  4.132589e-27</span></span>
-<span><span class="co">#&gt; 6 ENSRNOG00000008816  400.9526       2.794453 0.2661369  10.50006  8.632549e-26</span></span>
-<span><span class="co">#&gt;            padj symbol mer7m8 mer8 mer6 mer7A1 mer7m8.mm0_indelTRUE</span></span>
-<span><span class="co">#&gt; 1 3.405371e-119    Ttr      1    1    1      1                    1</span></span>
-<span><span class="co">#&gt; 2  1.358683e-32  Kpna6      0    0    0      0                    0</span></span>
-<span><span class="co">#&gt; 3  8.630849e-31  Aplp2      1    0    1      0                    1</span></span>
-<span><span class="co">#&gt; 4  5.144824e-26  Mmp12      0    0    0      0                    0</span></span>
-<span><span class="co">#&gt; 5  1.122577e-23  Stac3      0    0    0      0                    0</span></span>
-<span><span class="co">#&gt; 6  1.954121e-22  Gpnmb      0    0    0      0                    0</span></span>
-<span><span class="co">#&gt;   mer8.mm0_indelTRUE mer6.mm0_indelTRUE mer7A1.mm0_indelTRUE</span></span>
-<span><span class="co">#&gt; 1                  1                  1                    1</span></span>
-<span><span class="co">#&gt; 2                  0                  0                    0</span></span>
-<span><span class="co">#&gt; 3                  0                  1                    0</span></span>
-<span><span class="co">#&gt; 4                  0                  0                    0</span></span>
-<span><span class="co">#&gt; 5                  0                  0                    0</span></span>
-<span><span class="co">#&gt; 6                  0                  0                    0</span></span>
-<span><span class="co">#&gt;   mer7m8.mm1_indelTRUE mer8.mm1_indelTRUE mer6.mm1_indelTRUE</span></span>
-<span><span class="co">#&gt; 1                    1                  1                  2</span></span>
-<span><span class="co">#&gt; 2                   11                  3                 29</span></span>
-<span><span class="co">#&gt; 3                    3                  2                 12</span></span>
-<span><span class="co">#&gt; 4                    0                  0                  6</span></span>
-<span><span class="co">#&gt; 5                    1                  1                  1</span></span>
-<span><span class="co">#&gt; 6                    1                  0                  7</span></span>
-<span><span class="co">#&gt;   mer7A1.mm1_indelTRUE mer7m8.mm2_indelTRUE mer8.mm2_indelTRUE</span></span>
-<span><span class="co">#&gt; 1                    1                    4                  2</span></span>
-<span><span class="co">#&gt; 2                    7                   94                 21</span></span>
-<span><span class="co">#&gt; 3                    6                   38                 15</span></span>
-<span><span class="co">#&gt; 4                    4                   18                  6</span></span>
-<span><span class="co">#&gt; 5                    1                    4                  2</span></span>
-<span><span class="co">#&gt; 6                    1                   18                  6</span></span>
-<span><span class="co">#&gt;   mer6.mm2_indelTRUE mer7A1.mm2_indelTRUE mer7m8.mm0_indelFALSE</span></span>
-<span><span class="co">#&gt; 1                 14                    6                     1</span></span>
-<span><span class="co">#&gt; 2                204                   58                     0</span></span>
-<span><span class="co">#&gt; 3                101                   38                     1</span></span>
-<span><span class="co">#&gt; 4                 41                   16                     0</span></span>
-<span><span class="co">#&gt; 5                 14                    8                     0</span></span>
-<span><span class="co">#&gt; 6                 50                   20                     0</span></span>
-<span><span class="co">#&gt;   mer8.mm0_indelFALSE mer6.mm0_indelFALSE mer7A1.mm0_indelFALSE</span></span>
-<span><span class="co">#&gt; 1                   1                   1                     1</span></span>
-<span><span class="co">#&gt; 2                   0                   0                     0</span></span>
-<span><span class="co">#&gt; 3                   0                   1                     0</span></span>
-<span><span class="co">#&gt; 4                   0                   0                     0</span></span>
-<span><span class="co">#&gt; 5                   0                   0                     0</span></span>
-<span><span class="co">#&gt; 6                   0                   0                     0</span></span>
-<span><span class="co">#&gt;   mer7m8.mm1_indelFALSE mer8.mm1_indelFALSE mer6.mm1_indelFALSE</span></span>
-<span><span class="co">#&gt; 1                     1                   1                   1</span></span>
-<span><span class="co">#&gt; 2                     6                   3                  18</span></span>
-<span><span class="co">#&gt; 3                     3                   2                  12</span></span>
-<span><span class="co">#&gt; 4                     0                   0                   2</span></span>
-<span><span class="co">#&gt; 5                     1                   1                   1</span></span>
-<span><span class="co">#&gt; 6                     1                   0                   6</span></span>
-<span><span class="co">#&gt;   mer7A1.mm1_indelFALSE mer7m8.mm2_indelFALSE mer8.mm2_indelFALSE</span></span>
-<span><span class="co">#&gt; 1                     1                     3                   1</span></span>
-<span><span class="co">#&gt; 2                     6                    39                  12</span></span>
-<span><span class="co">#&gt; 3                     6                    22                   8</span></span>
-<span><span class="co">#&gt; 4                     1                     7                   1</span></span>
-<span><span class="co">#&gt; 5                     1                     2                   1</span></span>
-<span><span class="co">#&gt; 6                     0                     9                   2</span></span>
-<span><span class="co">#&gt;   mer6.mm2_indelFALSE mer7A1.mm2_indelFALSE</span></span>
-<span><span class="co">#&gt; 1                   6                     1</span></span>
-<span><span class="co">#&gt; 2                 111                    35</span></span>
-<span><span class="co">#&gt; 3                  62                    22</span></span>
-<span><span class="co">#&gt; 4                  25                    10</span></span>
-<span><span class="co">#&gt; 5                   7                     3</span></span>
-<span><span class="co">#&gt; 6                  28                    11</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -493,10 +334,8 @@ results data frame.</p>
 <span>                             null.name <span class="op">=</span> <span class="st">"Background"</span>,</span>
 <span>                             target.name <span class="op">=</span> <span class="st">"mer8"</span>, </span>
 <span>                             alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Comparing: Background vs. mer8</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
-<p><img src="SeedMatchR_files/figure-html/unnamed-chunk-16-1.png" width="960"></p>
 </div>
 <div class="section level3">
 <h3 id="using-seedmatchr-to-explore-potential-small-activating-rna-effects">Using <code>SeedMatchR</code> to explore potential small activating
@@ -533,107 +372,10 @@ RNA effects<a class="anchor" aria-label="anchor" href="#using-seedmatchr-to-expl
 <span>                             target.name <span class="op">=</span> <span class="st">"Promoter w/ mer7m8"</span>,</span>
 <span>                             alternative <span class="op">=</span> <span class="st">"less"</span>,</span>
 <span>                             palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"#d35400"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Comparing: Background vs. Promoter w/ mer7m8</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
-<p><img src="SeedMatchR_files/figure-html/unnamed-chunk-17-1.png" width="960"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; R version 4.3.1 (2023-06-16)</span></span>
-<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 22.04.3 LTS</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt;  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
-<span><span class="co">#&gt;  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
-<span><span class="co">#&gt;  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
-<span><span class="co">#&gt; [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; time zone: UTC</span></span>
-<span><span class="co">#&gt; tzcode source: system (glibc)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attached base packages:</span></span>
-<span><span class="co">#&gt; [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
-<span><span class="co">#&gt; [8] base     </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] rtracklayer_1.60.1     GenomicFeatures_1.52.2 AnnotationDbi_1.62.2  </span></span>
-<span><span class="co">#&gt;  [4] Biobase_2.60.0         GenomicRanges_1.52.1   msa_1.32.0            </span></span>
-<span><span class="co">#&gt;  [7] Biostrings_2.68.1      GenomeInfoDb_1.36.4    XVector_0.40.0        </span></span>
-<span><span class="co">#&gt; [10] IRanges_2.34.1         S4Vectors_0.38.2       BiocGenerics_0.46.0   </span></span>
-<span><span class="co">#&gt; [13] SeedMatchR_1.1.1      </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;   [1] RColorBrewer_1.1-3            jsonlite_1.8.7               </span></span>
-<span><span class="co">#&gt;   [3] magrittr_2.0.3                farver_2.1.1                 </span></span>
-<span><span class="co">#&gt;   [5] rmarkdown_2.25                fs_1.6.3                     </span></span>
-<span><span class="co">#&gt;   [7] BiocIO_1.10.0                 zlibbioc_1.46.0              </span></span>
-<span><span class="co">#&gt;   [9] ragg_1.2.6                    vctrs_0.6.4                  </span></span>
-<span><span class="co">#&gt;  [11] memoise_2.0.1                 Rsamtools_2.16.0             </span></span>
-<span><span class="co">#&gt;  [13] RCurl_1.98-1.12               ggtree_3.8.2                 </span></span>
-<span><span class="co">#&gt;  [15] R4RNA_1.28.0                  htmltools_0.5.6.1            </span></span>
-<span><span class="co">#&gt;  [17] S4Arrays_1.0.6                progress_1.2.2               </span></span>
-<span><span class="co">#&gt;  [19] AnnotationHub_3.8.0           curl_5.1.0                   </span></span>
-<span><span class="co">#&gt;  [21] gridGraphics_0.5-1            proj4_1.0-13                 </span></span>
-<span><span class="co">#&gt;  [23] sass_0.4.7                    KernSmooth_2.23-21           </span></span>
-<span><span class="co">#&gt;  [25] bslib_0.5.1                   desc_1.4.2                   </span></span>
-<span><span class="co">#&gt;  [27] cachem_1.0.8                  GenomicAlignments_1.36.0     </span></span>
-<span><span class="co">#&gt;  [29] ggalt_0.4.0                   mime_0.12                    </span></span>
-<span><span class="co">#&gt;  [31] lifecycle_1.0.3               pkgconfig_2.0.3              </span></span>
-<span><span class="co">#&gt;  [33] Matrix_1.5-4.1                R6_2.5.1                     </span></span>
-<span><span class="co">#&gt;  [35] fastmap_1.1.1                 GenomeInfoDbData_1.2.10      </span></span>
-<span><span class="co">#&gt;  [37] MatrixGenerics_1.12.3         shiny_1.7.5.1                </span></span>
-<span><span class="co">#&gt;  [39] digest_0.6.33                 aplot_0.2.2                  </span></span>
-<span><span class="co">#&gt;  [41] colorspace_2.1-0              patchwork_1.1.3              </span></span>
-<span><span class="co">#&gt;  [43] rprojroot_2.0.3               textshaping_0.3.7            </span></span>
-<span><span class="co">#&gt;  [45] RSQLite_2.3.1                 labeling_0.4.3               </span></span>
-<span><span class="co">#&gt;  [47] filelock_1.0.2                fansi_1.0.5                  </span></span>
-<span><span class="co">#&gt;  [49] polyclip_1.10-6               httr_1.4.7                   </span></span>
-<span><span class="co">#&gt;  [51] abind_1.4-5                   compiler_4.3.1               </span></span>
-<span><span class="co">#&gt;  [53] bit64_4.0.5                   withr_2.5.1                  </span></span>
-<span><span class="co">#&gt;  [55] BiocParallel_1.34.2           DBI_1.1.3                    </span></span>
-<span><span class="co">#&gt;  [57] ggforce_0.4.1                 Rttf2pt1_1.3.12              </span></span>
-<span><span class="co">#&gt;  [59] maps_3.4.1                    biomaRt_2.56.1               </span></span>
-<span><span class="co">#&gt;  [61] MASS_7.3-60                   rappdirs_0.3.3               </span></span>
-<span><span class="co">#&gt;  [63] DelayedArray_0.26.7           rjson_0.2.21                 </span></span>
-<span><span class="co">#&gt;  [65] tools_4.3.1                   ape_5.7-1                    </span></span>
-<span><span class="co">#&gt;  [67] interactiveDisplayBase_1.38.0 httpuv_1.6.12                </span></span>
-<span><span class="co">#&gt;  [69] extrafontdb_1.0               glue_1.6.2                   </span></span>
-<span><span class="co">#&gt;  [71] restfulr_0.0.15               nlme_3.1-162                 </span></span>
-<span><span class="co">#&gt;  [73] promises_1.2.1                grid_4.3.1                   </span></span>
-<span><span class="co">#&gt;  [75] generics_0.1.3                gtable_0.3.4                 </span></span>
-<span><span class="co">#&gt;  [77] tidyr_1.3.0                   hms_1.1.3                    </span></span>
-<span><span class="co">#&gt;  [79] xml2_1.3.5                    utf8_1.2.4                   </span></span>
-<span><span class="co">#&gt;  [81] BiocVersion_3.17.1            pillar_1.9.0                 </span></span>
-<span><span class="co">#&gt;  [83] stringr_1.5.0                 yulab.utils_0.1.0            </span></span>
-<span><span class="co">#&gt;  [85] later_1.3.1                   tweenr_2.0.2                 </span></span>
-<span><span class="co">#&gt;  [87] dplyr_1.1.3                   treeio_1.24.3                </span></span>
-<span><span class="co">#&gt;  [89] BiocFileCache_2.8.0           lattice_0.21-8               </span></span>
-<span><span class="co">#&gt;  [91] bit_4.0.5                     tidyselect_1.2.0             </span></span>
-<span><span class="co">#&gt;  [93] knitr_1.44                    SummarizedExperiment_1.30.2  </span></span>
-<span><span class="co">#&gt;  [95] xfun_0.40                     matrixStats_1.0.0            </span></span>
-<span><span class="co">#&gt;  [97] seqmagick_0.1.6               stringi_1.7.12               </span></span>
-<span><span class="co">#&gt;  [99] lazyeval_0.2.2                ggfun_0.1.3                  </span></span>
-<span><span class="co">#&gt; [101] yaml_2.3.7                    evaluate_0.22                </span></span>
-<span><span class="co">#&gt; [103] codetools_0.2-19              extrafont_0.19               </span></span>
-<span><span class="co">#&gt; [105] tibble_3.2.1                  ggmsa_1.6.0                  </span></span>
-<span><span class="co">#&gt; [107] BiocManager_1.30.22           ggplotify_0.1.2              </span></span>
-<span><span class="co">#&gt; [109] cli_3.6.1                     ash_1.0-15                   </span></span>
-<span><span class="co">#&gt; [111] xtable_1.8-4                  systemfonts_1.0.5            </span></span>
-<span><span class="co">#&gt; [113] munsell_0.5.0                 jquerylib_0.1.4              </span></span>
-<span><span class="co">#&gt; [115] Rcpp_1.0.11                   dbplyr_2.3.4                 </span></span>
-<span><span class="co">#&gt; [117] png_0.1-8                     XML_3.99-0.14                </span></span>
-<span><span class="co">#&gt; [119] parallel_4.3.1                ellipsis_0.3.2               </span></span>
-<span><span class="co">#&gt; [121] pkgdown_2.0.7                 ggplot2_3.4.4                </span></span>
-<span><span class="co">#&gt; [123] blob_1.2.4                    prettyunits_1.2.0            </span></span>
-<span><span class="co">#&gt; [125] bitops_1.0-7                  tidytree_0.4.5               </span></span>
-<span><span class="co">#&gt; [127] scales_1.2.1                  purrr_1.0.2                  </span></span>
-<span><span class="co">#&gt; [129] crayon_1.5.2                  rlang_1.1.1                  </span></span>
-<span><span class="co">#&gt; [131] KEGGREST_1.40.1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
