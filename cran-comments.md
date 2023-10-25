@@ -1,5 +1,14 @@
 ## Resubmission
 
+### 10/24/2023 - Resubmission for CRAN check failures. 
+
+── R CMD check results ────────────────────────────────────────────────────────────────────────────────────────────────── SeedMatchR 1.1.1 ────
+Duration: 1m 14.8s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+> I do not have exact information on the last build error, but I think it was related to internet issues with vignettes. I no longer evaluate vignettes in the patch. I point users to the documentation website instead. This should fix any issues that are due to downloading external data.
+
 ### 10/02/2023 - Addressing Build Issues from CRAN Checks
 
 > We were notified of build errors from the CRAN site, but were not able to 

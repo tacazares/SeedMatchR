@@ -1,6 +1,6 @@
 Package: SeedMatchR
 Title: Find Matches to Canonical SiRNA Seeds in Genomic Features
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: 
     c(person("Tareian", "Cazares", , "tareian.cazares@lilly.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4624-6156")),

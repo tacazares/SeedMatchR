@@ -1,3 +1,7 @@
+# SeedMatchR 1.1.1
+
+* Vignettes are no longer rendered. When evaluating, there was an issue with internet connectivity that caused the build checks to fail on CRAN. These are now provided as un-evaluated vignettes. Visit the documentation page at https://tacazares.github.io/SeedMatchR/. 
+
 # SeedMatchR 1.1.0
 
 * Addressed some notes and errors from CRAN check https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/SeedMatchR-00check.html

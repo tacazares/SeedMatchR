@@ -109,7 +109,6 @@ head(mirdb.rat)
 Since the names of the target genes are in REFSEQ format, we will use the R package `org.Rn.eg.db` to help map REFSEQ IDs to ENSEMBL IDs. 
 
 ```{r}
-
 library(org.Rn.eg.db)
 library(dplyr)
 
