@@ -1,6 +1,6 @@
-#' Plot the ECDF for DESeq2 log2(Fold Changes)
+#' Plot the ECDF for differential expression analysis log2(Fold Changes)
 #'
-#' @description This functions will take DESeq2 results as a `data.frame` and
+#' @description This functions will take differential expression results, such as from DESEQ2, as a `data.frame` and
 #' plot the ecdf for the input `gene.lists`.
 #'
 #' The gene sets to plot should be provided as a list of lists.
@@ -41,6 +41,7 @@
 #' @param height Plot height in inches
 #' @param width Plot width in inches
 #' @param dpi The dpi resolution for the figure
+#' @param l2fc.col The name of the column containing log2FoldChange values. Based on DESEQ2 names as default.
 #'
 #' @return A ggplot object for the ECDF plot
 #' @export
@@ -72,26 +73,30 @@
 #' # Gene set 2
 #' background.list = res$gene_id[!(res$mer7m8 %in% mer7m8.list)]
 #'
-#' ecdf.results = deseq_fc_ecdf(res,
+#' ecdf.results = de_fc_ecdf(res,
 #' list("Background" = background.list, "mer7m8" = mer7m8.list),
 #' stats.test = "KS",
 #' factor.order = c("Background", "mer7m8"),
 #' null.name = "Background",
 #' target.name = "mer7m8")
-deseq_fc_ecdf <- function(res,
+de_fc_ecdf <- function(res,
                           gene.lists,
                           title = "ECDF",
                           output.filename = NULL,
                           palette = SeedMatchR.palette,
                           factor.order = NULL,
                           x.lims = c(-1,1),
-                          stats.test = NULL,
-                          alternative = "greater",
+                          stats.test = c("KS", "Wilcoxen"),
+                          alternative = c("greater", "less", "two.sided"),
                           null.name = 1,
                           target.name = 2,
                           height = 5,
                           width = 5,
-                          dpi = 320){
+                          dpi = 320,
+                          l2fc.col = "log2FoldChange"){
+  alternative = match.arg(alternative)
+  stats.test = match.arg(stats.test)
+
   # This is to prevent a no visible binding for global variable error
   log2FoldChange <- Group <- NULL
 
@@ -125,10 +130,11 @@ deseq_fc_ecdf <- function(res,
 
   # Use a stats test to determine significance
   test.results = ecdf_stat_test(res,
-                                gene.lists[null.name],
                                 gene.lists[target.name],
+                                gene.lists[null.name],
                                 stats.test = stats.test,
-                                alternative = alternative)
+                                alternative = alternative,
+                                l2fc.col = l2fc.col)
 
   # Create ggplot
   ecdf.plot = ggplot2::ggplot(as.data.frame(res),
@@ -136,16 +142,16 @@ deseq_fc_ecdf <- function(res,
                                            group=Group,
                                            col=Group,
                                            geom = "step")) +
-    ggplot2::stat_ecdf(size = 2) +
+    ggplot2::stat_ecdf(linewidth = 2) +
     ggplot2::scale_colour_manual(values=palette, labels = legend.labels) +
     ggplot2::labs(title = title,
                   x = "Log2(Fold Change)",
                   y="Cumulative Distribution",
                   subtitle = paste0("Dstat: ",
-                                    test.results$statistic,
+                                    round(test.results$statistic, 6),
                                     "\n",
                                     "Pvalue: ",
-                                    test.results$p.value)) +
+                                    round(test.results$p.value, 10))) +
     SeedMatchR.theme +
     ggplot2::coord_cartesian(xlim = x.lims)
 

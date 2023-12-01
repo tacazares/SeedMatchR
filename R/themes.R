@@ -3,6 +3,7 @@ SeedMatchR.theme = ggplot2::theme(
   plot.background = ggplot2::element_rect(fill = 'white'),
   text = ggplot2::element_text(color = '#34495e', size=12),
   legend.justification = c(0,1),
+  legend.position = c(0.01,.99),
   legend.box.background = ggplot2::element_rect(fill = 'white', colour = "#2c3e50"),
   panel.grid.major = ggplot2::element_line(colour = "#6b8cae", linetype = 2, linewidth=.2),
   panel.grid.minor = ggplot2::element_line(colour = "white", linetype = 2, linewidth=.2),

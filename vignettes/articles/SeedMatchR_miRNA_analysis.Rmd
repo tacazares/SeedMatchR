@@ -175,7 +175,7 @@ mir.targets = mir.targets.score90[!mir.targets.score90 %in% seed_and_mir]
 # Generate the background list of genes
 background.list = res$gene_id[!(res$gene_id %in% mer7m8.list) & !(res$gene_id %in% mir.targets) & !(res$gene_id %in% seed_and_mir)]
   
-ecdf.results = deseq_fc_ecdf(res, 
+ecdf.results = de_fc_ecdf(res, 
                              title = "Ttr D1 30mkg",
                              list("Background" = background.list, 
                                   "mer7m8" = mer7m8.list, 

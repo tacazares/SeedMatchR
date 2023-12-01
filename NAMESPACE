@@ -2,7 +2,7 @@
 
 export(SeedMatchR)
 export(check_gene_list_overlap)
-export(deseq_fc_ecdf)
+export(de_fc_ecdf)
 export(download_parse_file)
 export(ecdf_stat_test)
 export(filter_deseq)

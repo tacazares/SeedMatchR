@@ -4,7 +4,7 @@
 #' @description This function uses the `stats` package to test the ECDF
 #' of log2(Fold Changes) between two groups based on DESeq2 analysis.
 #'
-#' The inputs of this function are a DESeq2 results `data.frame` and two sets of
+#' The inputs of this function are a differential expression results `data.frame` and two sets of
 #' gene IDs called `gene.list1` and `gene.list2`. The functions will look for a
 #' column called `log2FoldChange` in the dataframe.
 #'
@@ -13,6 +13,7 @@
 #' @param gene.list2 Gene list 2: Target set of genes
 #' @param stats.test Stats test to use. Options: KS or Wilcoxen
 #' @param alternative The alternative hypothesis to test. Options: greater, less, two.sided
+#' @param l2fc.col The name of the column containing log2FoldChange values. Based on DESEQ2 names as default.
 #'
 #' @return A vector containing the dstat and pvalue
 #'
@@ -48,22 +49,21 @@
 ecdf_stat_test <- function(res,
                            gene.list1,
                            gene.list2,
-                           stats.test="KS",
-                           alternative="greater"){
-  a = res$log2FoldChange[res$gene_id %in% unlist(gene.list1)] # Target group
+                           stats.test=c("KS", "Wilcoxen"),
+                           alternative="greater",
+                           l2fc.col = "log2FoldChange"){
+  stats.test = match.arg(stats.test)
 
-  b = res$log2FoldChange[res$gene_id %in% unlist(gene.list2)] # Null group
+  a = res[res$gene_id %in% unlist(gene.list1), l2fc.col] # Target group
+
+  b = res[res$gene_id %in% unlist(gene.list2), l2fc.col] # Null group
 
   if(stats.test == "KS"){
     scored = stats::ks.test(a, b, alternative = alternative)
 
-    } else if (stats.test == "Wilcoxen"){
+  } else {
+    scored = stats::wilcox.test(a, b, alternative = alternative)
 
-      scored = stats::wilcox.test(a, b, alternative = alternative)
-
-      } else {
-
-        stop("Incorrect input!")
   }
 
   return(scored)

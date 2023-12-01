@@ -9,8 +9,9 @@ ecdf_stat_test(
   res,
   gene.list1,
   gene.list2,
-  stats.test = "KS",
-  alternative = "greater"
+  stats.test = c("KS", "Wilcoxen"),
+  alternative = "greater",
+  l2fc.col = "log2FoldChange"
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ ecdf_stat_test(
 \item{stats.test}{Stats test to use. Options: KS or Wilcoxen}
 
 \item{alternative}{The alternative hypothesis to test. Options: greater, less, two.sided}
+
+\item{l2fc.col}{The name of the column containing log2FoldChange values. Based on DESEQ2 names as default.}
 }
 \value{
 A vector containing the dstat and pvalue
@@ -31,7 +34,7 @@ A vector containing the dstat and pvalue
 This function uses the \code{stats} package to test the ECDF
 of log2(Fold Changes) between two groups based on DESeq2 analysis.
 
-The inputs of this function are a DESeq2 results \code{data.frame} and two sets of
+The inputs of this function are a differential expression results \code{data.frame} and two sets of
 gene IDs called \code{gene.list1} and \code{gene.list2}. The functions will look for a
 column called \code{log2FoldChange} in the dataframe.
 }

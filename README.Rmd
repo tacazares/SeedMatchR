@@ -32,6 +32,16 @@ install.packages("devtools")
 devtools::install_github("tacazares/SeedMatchR")
 ```
 
+### Troubleshooting installation issues
+
+There have been some issues with installing `SeedMatchR` on Mac OS and Linux, especially if you use the most recent version of R (≥ 4.3). One potential suggestion is to use the version of R that was used in development (4.1.2), though `SeedMatchR` should work on the most recent version as well. 
+
+In addition, some users have issues with `ggmsa`. The package `ggmsa` requires the installations of the `msa` package to work. There have been issues with using the `plot_seeds()` function that cause errors due to a missing loaded package. To fix this, users must install and load the `msa` package from CRAN, in addition to `SeedMatchR`.
+
+`SeedMatchR` has been installed and tested on the most recent builds of R for Mac OS, Windows, and Linux. The results of the build tests are found here: https://github.com/tacazares/SeedMatchR/actions/runs/6634297920
+
+The file containing the working versions of each dependency is listed in the GitHub actions logs. For example, the most recent Mac OS build dependencies that work can be found in this [log](https://github.com/tacazares/SeedMatchR/actions/runs/6634297920/job/18023503364#step:5:5857).
+
 ## Quick start example with public siRNA data
 
 ```{r include = FALSE}
@@ -151,15 +161,14 @@ mer7m8.list = res$gene_id[res$mer7m8 >= 1]
 # Gene set 2
 background.list = res$gene_id[res$mer7m8 == 0]
 
-ecdf.results = deseq_fc_ecdf(res, 
+ecdf.results = de_fc_ecdf(res, 
                              list("Background" = background.list, 
                                   "mer7m8" = mer7m8.list),
                              stats.test = "KS", 
                              factor.order = c("Background", 
                                               "mer7m8"), 
                              null.name = "Background",
-                             target.name = "mer7m8", 
-                             alternative = "greater")
+                             target.name = "mer7m8",)
 
 ecdf.results$plot
 

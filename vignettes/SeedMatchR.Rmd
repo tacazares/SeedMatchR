@@ -237,7 +237,7 @@ mer8.list = res$gene_id[res$mer8.mm0_indelFALSE >= 1]
 
 background.list = res$gene_id[res$mer7m8.mm0_indelFALSE == 0 & res$mer8.mm0_indelFALSE == 0]
 
-ecdf.results = deseq_fc_ecdf(res, 
+ecdf.results = de_fc_ecdf(res, 
                              list("Background" = background.list, "mer8" = mer8.list, "mer7m8" = mer7m8.list),
                              stats.test = "KS", 
                              factor.order = c("Background", "mer8", "mer7m8"), 
@@ -270,7 +270,7 @@ promoterWseed = res$gene_id[res$promoter.mer7m8 >= 1]
 background.list = res$gene_id[!(res$gene_id %in% promoterWseed)]
 
 # Plot ecdf results for promoter matches with stats testing
-ecdf.results = deseq_fc_ecdf(res, 
+ecdf.results = de_fc_ecdf(res, 
                              title = "Ttr D1 30mkg",
                              list("Background" = background.list, 
                                   "Promoter w/ mer7m8" = promoterWseed),
