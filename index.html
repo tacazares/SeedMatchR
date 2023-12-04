@@ -104,6 +104,14 @@
 <code class="sourceCode R"><span><span class="co"># Install from GitHub</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tacazares/SeedMatchR"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="troubleshooting-installation-issues">Troubleshooting installation issues<a class="anchor" aria-label="anchor" href="#troubleshooting-installation-issues"></a>
+</h3>
+<p>There have been some issues with installing <code>SeedMatchR</code> on Mac OS and Linux, especially if you use the most recent version of R (≥ 4.3). One potential suggestion is to use the version of R that was used in development (4.1.2), though <code>SeedMatchR</code> should work on the most recent version as well.</p>
+<p>In addition, some users have issues with <code>ggmsa</code>. The package <code>ggmsa</code> requires the installations of the <code>msa</code> package to work. There have been issues with using the <code><a href="reference/plot_seeds.html">plot_seeds()</a></code> function that cause errors due to a missing loaded package. To fix this, users must install and load the <code>msa</code> package from CRAN, in addition to <code>SeedMatchR</code>.</p>
+<p><code>SeedMatchR</code> has been installed and tested on the most recent builds of R for Mac OS, Windows, and Linux. The results of the build tests are found here: <a href="https://github.com/tacazares/SeedMatchR/actions/runs/6634297920" class="external-link uri">https://github.com/tacazares/SeedMatchR/actions/runs/6634297920</a></p>
+<p>The file containing the working versions of each dependency is listed in the GitHub actions logs. For example, the most recent Mac OS build dependencies that work can be found in this <a href="https://github.com/tacazares/SeedMatchR/actions/runs/6634297920/job/18023503364#step:5:5857" class="external-link">log</a>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="quick-start-example-with-public-sirna-data">Quick start example with public siRNA data<a class="anchor" aria-label="anchor" href="#quick-start-example-with-public-sirna-data"></a>
@@ -238,15 +246,14 @@
 <span><span class="co"># Gene set 2</span></span>
 <span><span class="va">background.list</span> <span class="op">=</span> <span class="va">res</span><span class="op">$</span><span class="va">gene_id</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">mer7m8</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">ecdf.results</span> <span class="op">=</span> <span class="fu">deseq_fc_ecdf</span><span class="op">(</span><span class="va">res</span>, </span>
+<span><span class="va">ecdf.results</span> <span class="op">=</span> <span class="fu"><a href="reference/de_fc_ecdf.html">de_fc_ecdf</a></span><span class="op">(</span><span class="va">res</span>, </span>
 <span>                             <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Background"</span> <span class="op">=</span> <span class="va">background.list</span>, </span>
 <span>                                  <span class="st">"mer7m8"</span> <span class="op">=</span> <span class="va">mer7m8.list</span><span class="op">)</span>,</span>
 <span>                             stats.test <span class="op">=</span> <span class="st">"KS"</span>, </span>
 <span>                             factor.order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Background"</span>, </span>
 <span>                                              <span class="st">"mer7m8"</span><span class="op">)</span>, </span>
 <span>                             null.name <span class="op">=</span> <span class="st">"Background"</span>,</span>
-<span>                             target.name <span class="op">=</span> <span class="st">"mer7m8"</span>, </span>
-<span>                             alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span>                             target.name <span class="op">=</span> <span class="st">"mer7m8"</span>,<span class="op">)</span></span>
 <span><span class="co">#&gt; Comparing: Background vs. mer7m8</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
