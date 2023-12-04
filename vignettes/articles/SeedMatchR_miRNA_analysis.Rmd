@@ -6,7 +6,7 @@ title: "Exploring perturbation of miRNA pathways by siRNA knockdown using SeedMa
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = TRUE
+  eval = FALSE
 )
 ```
 
