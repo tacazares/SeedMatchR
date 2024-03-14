@@ -54,4 +54,5 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
 LazyData: true
-URL: https://tacazares.github.io/SeedMatchR/
+URL: https://tacazares.github.io/SeedMatchR/, https://github.com/tacazares/SeedMatchR
+BugReports: https://github.com/tacazares/SeedMatchR/issues
