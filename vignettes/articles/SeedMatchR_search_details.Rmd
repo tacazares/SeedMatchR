@@ -65,10 +65,6 @@ ttr.ins.target = DNAString("AAAACAGTGTTGCTTGCTCTATAA")
 
 # Ttr + 4 mm @ 12-15 + 1 deletion @ 21 + 1 insert @ 4
 ttr.mm4.in.del.target = DNAString("AAATACAGTGTTGCCACTCTAAA")
-
-# Ttr + wobble on mRNA
-ttr.wobble.mrna = DNAString("AAAACAGUGTTCTTGCTCTATAA")
-
 ```
 
 ### Load example DE data
@@ -150,24 +146,3 @@ matchPattern(ttr.target, ttr.mm4.in.del.target, max.mismatch = 6, with.indels = 
 ```{r}
 vcountPattern(ttr.target, DNAStringSet(ttr.mm4.in.del.target), max.mismatch = 6, with.indels = T)
 ```
-
-## Testing how wobbles are reported
-
-```{r}
-ttr.target.wobble
-```
-
-
-```{r}
-ttr.base.target
-```
-
-```{r}
-ttr.wobble.mrna
-```
-
-
-```{r}
-matchPattern(ttr.target.wobble, ttr.base.target, max.mismatch = 1)
-```
-
