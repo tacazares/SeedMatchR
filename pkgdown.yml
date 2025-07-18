@@ -1,11 +1,18 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
+  articles/SeedMatchR_Annotation_Databases: SeedMatchR_Annotation_Databases.html
+  articles/SeedMatchR_build_PPI_network: SeedMatchR_build_PPI_network.html
+  articles/SeedMatchR_ECDF_statistics: SeedMatchR_ECDF_statistics.html
+  articles/SeedMatchR_miRNA_analysis: SeedMatchR_miRNA_analysis.html
+  articles/SeedMatchR_noncanonical_searches: SeedMatchR_noncanonical_searches.html
+  articles/SeedMatchR_OutputFormats: SeedMatchR_OutputFormats.html
+  articles/SeedMatchR_search_details: SeedMatchR_search_details.html
+  articles/SeedMatchR_sequence_kmer_counts: SeedMatchR_sequence_kmer_counts.html
   SeedMatchR: SeedMatchR.html
-  SeedMatchR_miRNA_analysis: SeedMatchR_miRNA_analysis.html
-last_built: 2024-03-14T14:23Z
+  articles/SeedMatchReport: SeedMatchReport.html
+last_built: 2025-07-18T17:52Z
 urls:
   reference: https://tacazares.github.io/SeedMatchR/reference
   article: https://tacazares.github.io/SeedMatchR/articles
-

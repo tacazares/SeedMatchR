@@ -1,72 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_miRNA_analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/SeedMatchR-package.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/SeedMatchR.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/check_gene_list_overlap.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/de_fc_ecdf.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/download_parse_file.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/ecdf_stat_test.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/filter_deseq.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/get_example_data.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/get_feature_seqs.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/get_seed.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/load_example_data.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/load_species_anno_db.html</loc>
-  </url>
-  <url>
-    <loc>https://tacazares.github.io/SeedMatchR/reference/plot_seeds.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://tacazares.github.io/SeedMatchR/404.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/LICENSE-text.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/LICENSE.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_Annotation_Databases.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_ECDF_statistics.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_OutputFormats.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_build_PPI_network.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_miRNA_analysis.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_noncanonical_searches.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_search_details.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchR_sequence_kmer_counts.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/SeedMatchReport.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/articles/index.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/authors.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/index.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/news/index.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/SeedMatchR-package.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/SeedMatchR.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/SeedMatchReport.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/as_dataframe_mp_matches.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/benchmark_preds.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/build_annotation_filter.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/check_bulges_nt.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/create_graph.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/deseq_fc_ecdf.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-check_gene_list_overlap.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-create_alignment_df.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-find_factorial_internal.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-gc_content.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_all_combination_w_b.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_canonical_seed.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_counts_column.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_custom_sequence.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_longest_utr.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_match_df.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-get_target_bulged_guides.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-make_space.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-matchStrings.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-plot_ecdf.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-reduce_features.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-sequence_with_tb.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/dot-update_sequence_at.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/download_parse_file.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/ecdf_stat_test.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/filter_res.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/full_search.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/full_search_ranges.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/generate_e_value.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/get_3UTR_granges.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/get_compensatory_sequences.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/get_example_data.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/get_network_matches.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/get_seed.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/get_stringPPI_to_stringGGI.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/index.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/kmer_hist.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/load_annotations.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/load_example_data.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/load_species_anno_db.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/match_distances.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/message_passing.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/plotAlignment.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/run_wobble_bulges_pipeline.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/sequence_kmer_counts.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/vmatchPattern2.html</loc></url>
+<url><loc>https://tacazares.github.io/SeedMatchR/reference/wass_dist.html</loc></url>
 </urlset>
+

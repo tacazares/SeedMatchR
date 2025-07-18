@@ -5,153 +5,148 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="On-target gene knockdown using siRNA ideally results from binding 
-    fully complementary regions in mRNA transcripts to induce cleavage. 
-    Off-target siRNA gene knockdown can occur through several modes, one being 
-    a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated 
-    off-target effects occur when the ~8 nucleotides at the 5’ end of the guide 
-    strand, called a seed region, bind the 3’ untranslated regions of mRNA, 
-    causing reduced translation. Experiments using siRNA knockdown paired with 
-    RNA-seq can be used to detect siRNA sequences with potential off-target 
-    effects driven by the seed region. SeedMatchR provides tools for exploring 
-    and detecting potential seed-mediated off-target effects of siRNA in RNA-seq 
-    experiments. SeedMatchR is designed to extend current differential 
-    expression analysis tools, such as DESeq2, by annotating results with 
-    predicted seed matches. Using publicly available data, we demonstrate the 
-    ability of SeedMatchR to detect cumulative changes in differential gene 
-    expression attributed to siRNA seed regions. ">
-<title>Find Matches to Canonical SiRNA Seeds in Genomic Features • SeedMatchR</title>
+<title>Find siRNA Matches in Genomic Features • SeedMatchR</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Find Matches to Canonical SiRNA Seeds in Genomic Features">
-<meta property="og:description" content="On-target gene knockdown using siRNA ideally results from binding 
-    fully complementary regions in mRNA transcripts to induce cleavage. 
-    Off-target siRNA gene knockdown can occur through several modes, one being 
-    a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated 
-    off-target effects occur when the ~8 nucleotides at the 5’ end of the guide 
-    strand, called a seed region, bind the 3’ untranslated regions of mRNA, 
-    causing reduced translation. Experiments using siRNA knockdown paired with 
-    RNA-seq can be used to detect siRNA sequences with potential off-target 
-    effects driven by the seed region. SeedMatchR provides tools for exploring 
-    and detecting potential seed-mediated off-target effects of siRNA in RNA-seq 
-    experiments. SeedMatchR is designed to extend current differential 
-    expression analysis tools, such as DESeq2, by annotating results with 
-    predicted seed matches. Using publicly available data, we demonstrate the 
-    ability of SeedMatchR to detect cumulative changes in differential gene 
-    expression attributed to siRNA seed regions. ">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Find siRNA Matches in Genomic Features">
+<meta name="description" content="On-target siRNA silencing of mRNA results from binding to fully complementary regions in transcripts to induce cleavage. Off-target siRNA gene knockdown can occur through several modes, one being a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated off-target effects occur when the ~8 nucleotides at the 5’ end of the guide strand, called a seed region, bind the 3’ untranslated regions of mRNA, causing reduced translation. Experiments using siRNA knockdown paired with RNA-seq can be used to detect siRNA sequences with potential off-target effects driven by the seed region. SeedMatchR provides tools for exploring and detecting potential seed-mediated off-target effects of siRNA in RNA-seq experiments. SeedMatchR is designed to extend current differential expression analysis tools, such as DESeq2, by annotating results with predicted seed matches. Using publicly available data, we demonstrate the ability of SeedMatchR to detect cumulative changes in differential gene expression attributed to siRNA seed regions.">
+<meta property="og:description" content="On-target siRNA silencing of mRNA results from binding to fully complementary regions in transcripts to induce cleavage. Off-target siRNA gene knockdown can occur through several modes, one being a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated off-target effects occur when the ~8 nucleotides at the 5’ end of the guide strand, called a seed region, bind the 3’ untranslated regions of mRNA, causing reduced translation. Experiments using siRNA knockdown paired with RNA-seq can be used to detect siRNA sequences with potential off-target effects driven by the seed region. SeedMatchR provides tools for exploring and detecting potential seed-mediated off-target effects of siRNA in RNA-seq experiments. SeedMatchR is designed to extend current differential expression analysis tools, such as DESeq2, by annotating results with predicted seed matches. Using publicly available data, we demonstrate the ability of SeedMatchR to detect cumulative changes in differential gene expression attributed to siRNA seed regions.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="index.html">SeedMatchR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="articles/SeedMatchR.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/SeedMatchR.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/SeedMatchR_miRNA_analysis.html">Exploring perturbation of miRNA pathways by siRNA knockdown using SeedMatchR</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/SeedMatchR_Annotation_Databases.html">Overview of SeedMatchR Annotation Databases</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_build_PPI_network.html">SeedmatchR build PPI networks</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_ECDF_statistics.html">SeedMatchR ECDF Statistics</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_miRNA_analysis.html">Exploring perturbation of miRNA pathways by siRNA knockdown using SeedMatchR</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_noncanonical_searches.html">SeedMatchR_noncanonical_searches</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_OutputFormats.html">SeedMatchR output formats</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_search_details.html">SeedMatchR Search Details</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchR_sequence_kmer_counts.html">Transcript library k-mer counts with Biostrings</a></li>
+    <li><a class="dropdown-item" href="articles/SeedMatchReport.html">Generate a SeedMatchReport for select sequence definitions</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/tacazares/SeedMatchR/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="seedmatchr">SeedMatchR<a class="anchor" aria-label="anchor" href="#seedmatchr"></a>
+<div class="page-header"><h1 id="seedmatchr-version-200">SeedMatchR version 2.0.0<a class="anchor" aria-label="anchor" href="#seedmatchr-version-200"></a>
 </h1></div>
-<!-- badges: start -->
-
-<p>The goal of SeedMatchR is to help users identify potential seed-mediated effects in their RNAseq data.</p>
+<p>The goal of SeedMatchR is to help users identify potential seed-mediated effects in their RNA-seq data.</p>
+<p>These changes in this forked repository is to add the biological target bulges and wobbles in the search space.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>This version of SeedMatchR requires R ≥ 4.3.0, but it is recommended to use the latest version of R to avoid issues with annotation retrieval for newer genomes.</p>
 <p>You can install the development version of SeedMatchR from <a href="https://github.com/" class="external-link">GitHub</a> or the stable build from CRAN.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install from GitHub</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Public Repository</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tacazares/SeedMatchR"</span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="troubleshooting-installation-issues">Troubleshooting installation issues<a class="anchor" aria-label="anchor" href="#troubleshooting-installation-issues"></a>
-</h3>
-<p>There have been some issues with installing <code>SeedMatchR</code> on Mac OS and Linux, especially if you use the most recent version of R (≥ 4.3). One potential suggestion is to use the version of R that was used in development (4.1.2), though <code>SeedMatchR</code> should work on the most recent version as well.</p>
-<p>In addition, some users have issues with <code>ggmsa</code>. The package <code>ggmsa</code> requires the installations of the <code>msa</code> package to work. There have been issues with using the <code><a href="reference/plot_seeds.html">plot_seeds()</a></code> function that cause errors due to a missing loaded package. To fix this, users must install and load the <code>msa</code> package from CRAN, in addition to <code>SeedMatchR</code>.</p>
-<p><code>SeedMatchR</code> has been installed and tested on the most recent builds of R for Mac OS, Windows, and Linux. The results of the build tests are found here: <a href="https://github.com/tacazares/SeedMatchR/actions/runs/6634297920" class="external-link uri">https://github.com/tacazares/SeedMatchR/actions/runs/6634297920</a></p>
-<p>The file containing the working versions of each dependency is listed in the GitHub actions logs. For example, the most recent Mac OS build dependencies that work can be found in this <a href="https://github.com/tacazares/SeedMatchR/actions/runs/6634297920/job/18023503364#step:5:5857" class="external-link">log</a>.</p>
-</div>
 </div>
 <div class="section level2">
-<h2 id="quick-start-example-with-public-sirna-data">Quick start example with public siRNA data<a class="anchor" aria-label="anchor" href="#quick-start-example-with-public-sirna-data"></a>
+<h2 id="quick-start-examples-with-public-sirna-data">Quick start examples with public siRNA data<a class="anchor" aria-label="anchor" href="#quick-start-examples-with-public-sirna-data"></a>
 </h2>
 <p>This example uses the siRNA sequence, D1, targeting the Ttr gene in rat liver from the publication:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>Schlegel MK, Janas MM, Jiang Y, Barry JD, Davis W, Agarwal S, Berman D, Brown CR, Castoreno A, LeBlanc S, Liebow A, Mayo T, Milstein S, Nguyen T, Shulga<span class="sc">-</span>Morskaya S, Hyde S, Schofield S, Szeto J, Woods LB, Yilmaz VO, Manoharan M, Egli M, Charissé K, Sepp<span class="sc">-</span>Lorenzino L, Haslett P, Fitzgerald K, Jadhav V, Maier MA. From bench to bedside<span class="sc">:</span> Improving the clinical safety of GalNAc<span class="sc">-</span>siRNA conjugates using seed<span class="sc">-</span>pairing destabilization. Nucleic Acids Res. <span class="dv">2022</span> Jul <span class="dv">8</span>;<span class="dv">50</span>(<span class="dv">12</span>)<span class="sc">:</span><span class="dv">6656</span><span class="fl">-6670.</span> doi<span class="sc">:</span> <span class="fl">10.1093</span><span class="sc">/</span>nar<span class="sc">/</span>gkac539. PMID<span class="sc">:</span> <span class="dv">35736224</span>; PMCID<span class="sc">:</span> PMC9262600.</span></code></pre></div>
+<blockquote>
+<p>Schlegel MK, Janas MM, Jiang Y, Barry JD, Davis W, Agarwal S, Berman D, Brown CR, Castoreno A, LeBlanc S, Liebow A, Mayo T, Milstein S, Nguyen T, Shulga-Morskaya S, Hyde S, Schofield S, Szeto J, Woods LB, Yilmaz VO, Manoharan M, Egli M, Charissé K, Sepp-Lorenzino L, Haslett P, Fitzgerald K, Jadhav V, Maier MA. From bench to bedside: Improving the clinical safety of GalNAc-siRNA conjugates using seed-pairing destabilization. Nucleic Acids Res. 2022 Jul 8;50(12):6656-6670. doi: 10.1093/nar/gkac539. PMID: 35736224; PMCID: PMC9262600.</p>
+</blockquote>
 <p>The guide sequence of interest is 23 bp long and oriented 5’ -&gt; 3’.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># siRNA sequence of interest targeting a 23 bp region of the Ttr gene</span></span>
 <span><span class="va">guide.seq</span> <span class="op">=</span> <span class="st">"UUAUAGAGCAAGAACACUGUUUU"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="load-rat-specific-annotation-data">Load rat specific annotation data.<a class="anchor" aria-label="anchor" href="#load-rat-specific-annotation-data"></a>
 </h3>
-<p>We use <code>AnnotationHub</code> to derive the <code>GTF</code> and <code>DNA</code> sequence files for the species of interest. Once you have derived the annotations, you could save them as an Rdata object to increase the speed of loading the datasets.</p>
+<p>We use <code>AnnotationHub</code> to derive the <code>GTF</code> and <code>DNA</code> sequence files for the species of interest. Once you have derived the annotations, you could save them as an Rdata object to increase the speed of loading the data sets. Running this function will take several minutes. Therefore it might be helpful to save the objects and reload them later if you plan to use this code in a repeated workflow.</p>
 <div class="section level4">
 <h4 id="load-annotation-databases">Load annotation databases<a class="anchor" aria-label="anchor" href="#load-annotation-databases"></a>
 </h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">annodb</span> <span class="op">=</span> <span class="fu"><a href="reference/load_annotations.html">load_annotations</a></span><span class="op">(</span>reference.name <span class="op">=</span> <span class="st">"rnor6"</span>, canonical <span class="op">=</span> <span class="cn">FALSE</span>, min.feature.width <span class="op">=</span> <span class="fl">8</span>, longest.utr <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Build AnnotationFilter for transcript features based on the following parameters: </span></span>
+<span><span class="co">#&gt; Keep only standard chroms: TRUE</span></span>
+<span><span class="co">#&gt; Remove rows with NA in transcript ID: TRUE</span></span>
+<span><span class="co">#&gt; Keep only protein coding genes and transcripts: TRUE</span></span>
+<span><span class="co">#&gt; Filtering for transcripts with support level: FALSE</span></span>
+<span><span class="co">#&gt; Keep only the ENSEMBL canonical transcript: FALSE</span></span>
+<span><span class="co">#&gt; Filtering for specific genes: FALSE</span></span>
+<span><span class="co">#&gt; Filtering for specific transcripts: FALSE</span></span>
+<span><span class="co">#&gt; Filtering for specific gene symbols: FALSE</span></span>
+<span><span class="co">#&gt; Filtering for specific entrez id: FALSE</span></span>
+<span><span class="co">#&gt; Loading annotations from AnnotationHub for rnor6</span></span>
+<span><span class="co">#&gt; loading from cache</span></span>
+<span><span class="co">#&gt; require("rtracklayer")</span></span>
+<span><span class="co">#&gt; loading from cache</span></span>
+<span><span class="co">#&gt; require("ensembldb")</span></span>
+<span><span class="co">#&gt; Extracting 3UTR from ensembldb object.</span></span>
+<span><span class="co">#&gt; Keeping the longest UTR per gene.</span></span>
+<span><span class="co">#&gt; Extracting sequences for each feature.</span></span>
+<span><span class="co">#&gt; Keeping sequences that are &gt;= 8</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="example-1-perform-a-comprehensive-transcriptome-search">Example 1: Perform a comprehensive transcriptome search<a class="anchor" aria-label="anchor" href="#example-1-perform-a-comprehensive-transcriptome-search"></a>
+</h2>
+<p>The most straightforward way of using SeedMatchR is to search a reference set of transcripts given an input sequence.</p>
+<div class="section level3">
+<h3 id="output-match-ranges-as-granges">Output match ranges as granges<a class="anchor" aria-label="anchor" href="#output-match-ranges-as-granges"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the species specific annotation database object</span></span>
-<span><span class="va">anno.db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_species_anno_db.html">load_species_anno_db</a></span><span class="op">(</span><span class="st">"rat"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">res.df</span> <span class="op">=</span> <span class="fu"><a href="reference/SeedMatchR.html">SeedMatchR</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">annodb</span><span class="op">$</span><span class="va">seqs</span>, </span>
+<span>                 sequence <span class="op">=</span> <span class="va">guide.seq</span>, </span>
+<span>                 seed.name <span class="op">=</span> <span class="st">"mer7m8"</span>, </span>
+<span>                 res.format <span class="op">=</span> <span class="st">"granges"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="extract-features-and-sequences-of-interest-from-annotations">Extract features and sequences of interest from annotations<a class="anchor" aria-label="anchor" href="#extract-features-and-sequences-of-interest-from-annotations"></a>
-</h4>
-<p>We will use the annotations to derive the features and feature sequences that we want to scan for each gene.</p>
+<div class="section level3">
+<h3 id="output-match-ranges-for-many-different-types-of-views-of-the-sirna">Output match ranges for many different types of views of the siRNA<a class="anchor" aria-label="anchor" href="#output-match-ranges-for-many-different-types-of-views-of-the-sirna"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">features</span> <span class="op">=</span> <span class="fu"><a href="reference/get_feature_seqs.html">get_feature_seqs</a></span><span class="op">(</span><span class="va">anno.db</span><span class="op">$</span><span class="va">tx.db</span>, <span class="va">anno.db</span><span class="op">$</span><span class="va">dna</span>, feature.type <span class="op">=</span> <span class="st">"3UTR"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">res.df</span> <span class="op">=</span> <span class="fu"><a href="reference/full_search.html">full_search</a></span><span class="op">(</span><span class="va">guide.seq</span>, <span class="va">annodb</span><span class="op">$</span><span class="va">seqs</span>, group.name <span class="op">=</span> <span class="st">"Ttr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="example-2-analyze-rna-seq-data-with-seedmatchr">Example 2: Analyze RNA-seq data with SeedMatchR<a class="anchor" aria-label="anchor" href="#example-2-analyze-rna-seq-data-with-seedmatchr"></a>
+</h2>
 <div class="section level3">
 <h3 id="prepare-deseq2-results">Prepare DESEQ2 Results<a class="anchor" aria-label="anchor" href="#prepare-deseq2-results"></a>
 </h3>
 <p>The test data that is provided with <code>SeedMatchR</code> was derived from the 2022 publication by Schlegel et al. The data set represents a DESeq2 analysis performed on rat liver that had been treated with Ttr targeting siRNA. We will use this example to explore seed mediated activity.</p>
+<p>Notes: &gt;The <code>SeedMatchR</code> function will look for specific column in the input if using the <code>res</code> argument to map seed matches to differential expression data. The input must contain the columns <code>gene_id</code>, <code>log2FoldChange</code>, and <code>padj</code>.</p>
 <div class="section level4">
 <h4 id="download-data-only-need-to-perform-once-can-skip-to-loading-if-done">Download data (only need to perform once, can skip to loading if done)<a class="anchor" aria-label="anchor" href="#download-data-only-need-to-perform-once-can-skip-to-loading-if-done"></a>
 </h4>
@@ -172,67 +167,41 @@
 <div class="section level4">
 <h4 id="filter-example-results">Filter example results<a class="anchor" aria-label="anchor" href="#filter-example-results"></a>
 </h4>
-<p>The DESeq2 results file is then filtered. The function <code><a href="reference/filter_deseq.html">filter_deseq()</a></code> can be used to filter a results file by log2FoldChange, padj, baseMean, and remove NA entries.</p>
+<p>The DESeq2 results file is then filtered. The function <code><a href="reference/filter_res.html">filter_res()</a></code> can be used to filter a results file by log2FoldChange, padj, baseMean, and remove NA entries.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dimensions before filtering</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># [1] 32883    6</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># [1] 32883    8</span></span>
 <span><span class="co">#&gt; [1] 32883     8</span></span>
 <span></span>
 <span><span class="co"># Filter DESeq2 results for SeedMatchR</span></span>
-<span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="reference/filter_deseq.html">filter_deseq</a></span><span class="op">(</span><span class="va">res</span>, fdr.cutoff<span class="op">=</span><span class="fl">1</span>, fc.cutoff<span class="op">=</span><span class="fl">0</span>, rm.na.log2fc <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="reference/filter_res.html">filter_res</a></span><span class="op">(</span><span class="va">res</span>, fdr_cutoff<span class="op">=</span><span class="fl">1</span>, fc_cutoff<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dimensions after filtering</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># [1] 13582     8</span></span>
-<span><span class="co">#&gt; [1] 13582     8</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 8124    8</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="counting-seed-matches-in-transcripts">Counting seed matches in transcripts<a class="anchor" aria-label="anchor" href="#counting-seed-matches-in-transcripts"></a>
 </h3>
 <p>You can perform a seed match for a single seed using the <code><a href="reference/SeedMatchR.html">SeedMatchR()</a></code> function.</p>
+<p>Notes:</p>
+<blockquote>
+<p>The names of the sequences in <code>seqs</code> will determine if you need to use the <code>tx.id.col</code> argument. If you sequence names are gene IDs, then no additional flags need to be set. If they sequence names are transcripts, then the argument <code>tx.id.col</code> should be set to <code>TRUE</code>. This will summarize the transcript matches to the gene level using information in the gtf file.</p>
+</blockquote>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="reference/SeedMatchR.html">SeedMatchR</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">anno.db</span><span class="op">$</span><span class="va">gtf</span>, <span class="va">features</span><span class="op">$</span><span class="va">seqs</span>, <span class="va">guide.seq</span>, <span class="st">"mer7m8"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="reference/SeedMatchR.html">SeedMatchR</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">res</span>, </span>
+<span>                 seqs <span class="op">=</span> <span class="va">annodb</span><span class="op">$</span><span class="va">seqs</span>, </span>
+<span>                 sequence <span class="op">=</span> <span class="va">guide.seq</span>, </span>
+<span>                 seed.name <span class="op">=</span> <span class="st">"mer7m8"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              gene_id  baseMean log2FoldChange     lfcSE      stat        pvalue</span></span>
 <span><span class="co">#&gt; 1 ENSRNOG00000016275 2138.0945      -8.164615        NA -23.61818 2.507268e-123</span></span>
 <span><span class="co">#&gt; 2 ENSRNOG00000000127  437.6342      -1.346927 0.1068629 -12.60425  2.000712e-36</span></span>
-<span><span class="co">#&gt; 3 ENSRNOG00000047179 1590.1745      -1.262411 0.1031403 -12.23974  1.906387e-34</span></span>
-<span><span class="co">#&gt; 4 ENSRNOG00000030187  131.9206       3.422725 0.3032352  11.28736  1.515189e-29</span></span>
-<span><span class="co">#&gt; 5 ENSRNOG00000008050   38.9921      -3.442834 0.3192776 -10.78320  4.132589e-27</span></span>
-<span><span class="co">#&gt; 6 ENSRNOG00000008816  400.9526       2.794453 0.2661369  10.50006  8.632549e-26</span></span>
 <span><span class="co">#&gt;            padj symbol mer7m8</span></span>
 <span><span class="co">#&gt; 1 3.405371e-119    Ttr      1</span></span>
-<span><span class="co">#&gt; 2  1.358683e-32  Kpna6      0</span></span>
-<span><span class="co">#&gt; 3  8.630849e-31  Aplp2      1</span></span>
-<span><span class="co">#&gt; 4  5.144824e-26  Mmp12      0</span></span>
-<span><span class="co">#&gt; 5  1.122577e-23  Stac3      0</span></span>
-<span><span class="co">#&gt; 6  1.954121e-22  Gpnmb      0</span></span></code></pre></div>
-<div class="section level4">
-<h4 id="match-multiple-seeds">Match multiple seeds<a class="anchor" aria-label="anchor" href="#match-multiple-seeds"></a>
-</h4>
-<p>You can perform seed matching for all available seeds using a for loop. The results will be appended as a new column to the results data frame.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">seed</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mer8"</span>, <span class="st">"mer6"</span>, <span class="st">"mer7A1"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/SeedMatchR.html">SeedMatchR</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">anno.db</span><span class="op">$</span><span class="va">gtf</span>, <span class="va">features</span><span class="op">$</span><span class="va">seqs</span>, <span class="va">guide.seq</span>, seed.name <span class="op">=</span> <span class="va">seed</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt;              gene_id  baseMean log2FoldChange     lfcSE      stat        pvalue</span></span>
-<span><span class="co">#&gt; 1 ENSRNOG00000016275 2138.0945      -8.164615        NA -23.61818 2.507268e-123</span></span>
-<span><span class="co">#&gt; 2 ENSRNOG00000000127  437.6342      -1.346927 0.1068629 -12.60425  2.000712e-36</span></span>
-<span><span class="co">#&gt; 3 ENSRNOG00000047179 1590.1745      -1.262411 0.1031403 -12.23974  1.906387e-34</span></span>
-<span><span class="co">#&gt; 4 ENSRNOG00000030187  131.9206       3.422725 0.3032352  11.28736  1.515189e-29</span></span>
-<span><span class="co">#&gt; 5 ENSRNOG00000008050   38.9921      -3.442834 0.3192776 -10.78320  4.132589e-27</span></span>
-<span><span class="co">#&gt; 6 ENSRNOG00000008816  400.9526       2.794453 0.2661369  10.50006  8.632549e-26</span></span>
-<span><span class="co">#&gt;            padj symbol mer7m8 mer8 mer6 mer7A1</span></span>
-<span><span class="co">#&gt; 1 3.405371e-119    Ttr      1    1    1      1</span></span>
-<span><span class="co">#&gt; 2  1.358683e-32  Kpna6      0    0    0      0</span></span>
-<span><span class="co">#&gt; 3  8.630849e-31  Aplp2      1    0    1      0</span></span>
-<span><span class="co">#&gt; 4  5.144824e-26  Mmp12      0    0    0      0</span></span>
-<span><span class="co">#&gt; 5  1.122577e-23  Stac3      0    0    0      0</span></span>
-<span><span class="co">#&gt; 6  1.954121e-22  Gpnmb      0    0    0      0</span></span></code></pre></div>
-</div>
+<span><span class="co">#&gt; 2  1.358683e-32  Kpna6      0</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="comparing-the-expression-profiles-of-seed-targets-to-background">Comparing the expression profiles of seed targets to background<a class="anchor" aria-label="anchor" href="#comparing-the-expression-profiles-of-seed-targets-to-background"></a>
@@ -246,25 +215,19 @@
 <li>
 <code>gene.lists</code>: A list of lists containing gene names</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Gene set 1 </span></span>
 <span><span class="va">mer7m8.list</span> <span class="op">=</span> <span class="va">res</span><span class="op">$</span><span class="va">gene_id</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">mer7m8</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Gene set 2</span></span>
 <span><span class="va">background.list</span> <span class="op">=</span> <span class="va">res</span><span class="op">$</span><span class="va">gene_id</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">mer7m8</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">ecdf.results</span> <span class="op">=</span> <span class="fu"><a href="reference/de_fc_ecdf.html">de_fc_ecdf</a></span><span class="op">(</span><span class="va">res</span>, </span>
+<span><span class="va">ecdf.results</span> <span class="op">=</span> <span class="fu"><a href="reference/deseq_fc_ecdf.html">deseq_fc_ecdf</a></span><span class="op">(</span><span class="va">res</span>, </span>
 <span>                             <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Background"</span> <span class="op">=</span> <span class="va">background.list</span>, </span>
-<span>                                  <span class="st">"mer7m8"</span> <span class="op">=</span> <span class="va">mer7m8.list</span><span class="op">)</span>,</span>
-<span>                             stats.test <span class="op">=</span> <span class="st">"KS"</span>, </span>
-<span>                             factor.order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Background"</span>, </span>
-<span>                                              <span class="st">"mer7m8"</span><span class="op">)</span>, </span>
-<span>                             null.name <span class="op">=</span> <span class="st">"Background"</span>,</span>
-<span>                             target.name <span class="op">=</span> <span class="st">"mer7m8"</span>,<span class="op">)</span></span>
-<span><span class="co">#&gt; Comparing: Background vs. mer7m8</span></span>
+<span>                                  <span class="st">"mer7m8"</span> <span class="op">=</span> <span class="va">mer7m8.list</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ecdf.results</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="50%"></p>
 </div>
 </div>
 </div>
@@ -272,8 +235,6 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=SeedMatchR" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/tacazares/SeedMatchR/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/tacazares/SeedMatchR/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -296,41 +257,35 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Tareian Cazares <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4624-6156" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Gulcin Ozer <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8315-8051" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Jibo Wang <br><small class="roles"> Author </small>  </li>
-<li>Rick Higgs <br><small class="roles"> Author </small>  </li>
+<li>Tareian Cazares <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4624-6156" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Gulcin Ozer <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8315-8051" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Pradeep Varathan Pugalenthi <br><small class="roles"> Author </small>   </li>
+<li>Jibo Wang <br><small class="roles"> Author </small>   </li>
+<li>Rick Higgs <br><small class="roles"> Author </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/tacazares/SeedMatchR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tacazares/SeedMatchR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Tareian Cazares, Gulcin Ozer, Jibo Wang, Rick Higgs.</p>
+  <p>Developed by Tareian Cazares, Gulcin Ozer, Pradeep Varathan Pugalenthi, Jibo Wang, Rick Higgs.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
