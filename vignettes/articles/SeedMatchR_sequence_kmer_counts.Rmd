@@ -63,6 +63,6 @@ head(exons.df)
 
 
 ```{r}
-hist(gene.counts, breaks = 50, xlab = "Number of genes with 7mer", col = "grey90", main = NULL)
+hist(exon.gene.counts, breaks = 50, xlab = "Number of genes with 7mer", col = "grey90", main = NULL)
 ```
 
