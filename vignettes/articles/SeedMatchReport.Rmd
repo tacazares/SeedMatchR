@@ -1,0 +1,82 @@
+---
+title: "Generate a SeedMatchReport for select sequence definitions"
+author: "Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchReport}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+library(gt)
+```
+
+# Generating a SeedMatchReport
+
+A `SeedMatchReport` is an analysis that will run through a pre-defined list of sequence definitions for your siRNA and scan annotations found in your DESEQ2 results file to report some basic statistics. 
+
+## Example workflow
+
+### Load annotations
+
+```{r}
+annodb = load_annotations(reference.name = "rnor6", canonical = FALSE, min.feature.width = 8, longest.utr = T)
+```
+
+### Load example DESeq2 data
+
+```{r}
+get_example_data("sirna")
+
+sirna.data = load_example_data("sirna")
+
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
+
+res = filter_res(res)
+```
+
+
+## Generate report
+
+The report can be generated searches with and without indels. It is important to think about how indels will alter the results of the analysis. The edit distance (D) corresponds to the number of indels and mismatches allowed during the search. The edit distance is the total of mismatches + indels. Therefore, if you have the `indel.bool` flag set to `TRUE` then any insertion and deletion will counts towards the edit distance. So a edit distance of 4 could be 4 mismatches or 3 mismatches + 1 indel or any combination of indel + mismatches. 
+
+### Generate report without indels
+
+```{r}
+default.report = SeedMatchReport(res = res, seqs = annodb$seqs, guide.seq = "UUAUAGAGCAAGAACACUGUUUU", indel.bool = FALSE)
+
+default.report$table
+```
+
+### Generate report with indels
+
+```{r}
+indel.report = SeedMatchReport(res = res, seqs = annodb$seqs, guide.seq = "UUAUAGAGCAAGAACACUGUUUU", indel.bool = TRUE)
+
+indel.report$table
+```
+
+### Generate report with wobbles
+
+```{r}
+wobble.report = SeedMatchReport(res = res, seqs = annodb$seqs, guide.seq = "UUAUAGAGCAAGAACACUGUUUU", indel.bool = FALSE, allow_wobbles = TRUE)
+
+wobble.report$table
+```
+
+### Generate report with wobbles and with indels
+
+```{r}
+indel.wobble.report = SeedMatchReport(res = res, seqs = annodb$seqs, guide.seq = "UUAUAGAGCAAGAACACUGUUUU", indel.bool = TRUE, allow_wobbles = TRUE)
+
+indel.wobble.report$table
+```

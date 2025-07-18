@@ -1,3 +1,4 @@
+#Set theme
 SeedMatchR.theme = ggplot2::theme(
   title = ggplot2::element_text(size=14),
   plot.background = ggplot2::element_rect(fill = 'white'),
@@ -14,5 +15,4 @@ SeedMatchR.theme = ggplot2::theme(
 
 # color palette
 SeedMatchR.palette = c('black', '#3498db', '#2ecc71','#f1c40f', '#e74c3c',
-                       '#9b59b6','#1abc9c', '#f39c12','#d35400')
-
+                              '#9b59b6','#1abc9c', '#f39c12','#d35400')

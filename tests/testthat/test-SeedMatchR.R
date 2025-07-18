@@ -1,31 +1,53 @@
-# test_that("You can retreive the correct mer7m8 seed sequence", {
-#   expect_equal(get.seed("UUAUAGAGCAAGAACACUGUUUU", "mer7m8"), "CTCTATA")
-# })
-#
-# test_that("You can retreive the correct mer7A1 seed sequence", {
-#   expect_equal(get.seed("UUAUAGAGCAAGAACACUGUUUU", "mer7A1"), "TCTATAA")
-# })
-#
-# test_that("You can retreive the correct mer8 seed sequence", {
-#   expect_equal(get.seed("UUAUAGAGCAAGAACACUGUUUU", "mer8"), "CTCTATAA")
-# })
-#
-# test_that("You can retreive the correct mer6 seed sequence", {
-#   expect_equal(get.seed("UUAUAGAGCAAGAACACUGUUUU", "mer6"), "TCTATA")
-# })
-#
-# test_that("get.seed() errors if input length < 8", {
-#   expect_error(get.seed("UUAUAG", "mer6"))
-# })
-#
-# test_that("get.seed() errors if input seq is not a character", {
-#   expect_error(get.seed(1, "mer6"))
-# })
-#
-# test_that("get.seed() errors if input seed.name is not a character", {
-#   expect_error(get.seed("UUAUAGAGCAAGAACACUGUUUU", 1))
-# })
-#
-# test_that("get.seed() errors if input seed.name is not in defined list", {
-#   expect_error(get.seed("UUAUAG", "mer5"))
-# })
+
+test_that("Expect correct counts for DESEQ2 mode for mer8", {
+  expect_snapshot(SeedMatchR::SeedMatchR(res = res,
+                                         seqs = seqs,
+                                         sequence = guide.seq,
+                                         seed.name = "mer7m8",
+                                         res.format = "DESEQ2")
+                  )
+})
+
+test_that("Expect correct counts for DESEQ2 mode for mer8", {
+  expect_snapshot(SeedMatchR::SeedMatchR(res = res,
+                                         seqs = seqs,
+                                         sequence = guide.seq,
+                                         seed.name = "mer8",
+                                         res.format = "DESEQ2")
+  )
+})
+
+test_that("Expect start and stop positions for DESEQ2 mode for custom sequence", {
+  expect_error(SeedMatchR::SeedMatchR(res = res,
+                                         seqs = seqs,
+                                         sequence = guide.seq,
+                                         seed.name = "Custom",
+                                         res.format = "DESEQ2")
+  )
+})
+
+test_that("Expect correct matches for granges mode for mer7m8", {
+  expect_snapshot(SeedMatchR::SeedMatchR(seqs = seqs,
+                                         sequence = guide.seq,
+                                         seed.name = "mer7m8",
+                                         res.format = "granges")
+  )
+})
+
+test_that("Expect correct matches for iranges mode for mer7m8", {
+  expect_snapshot(SeedMatchR::SeedMatchR(seqs = seqs,
+                                         sequence = guide.seq,
+                                         seed.name = "mer7m8",
+                                         res.format = "iranges")
+  )
+})
+
+test_that("Expect correct matches for data frame mode for mer7m8 with G:U wobbles", {
+  expect_snapshot(SeedMatchR::SeedMatchR(seqs = seqs,
+                                         sequence = guide.seq,
+                                         seed.name = "mer7m8",
+                                         res.format = "data.frame",
+                                         allow_wobbles = TRUE,
+                                         fixed = FALSE)
+  )
+})

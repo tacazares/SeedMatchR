@@ -1,5 +1,11 @@
 ---
 title: "Exploring perturbation of miRNA pathways by siRNA knockdown using SeedMatchR"
+author: "Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR_SearchDetails}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -15,12 +21,6 @@ In this example we will use a few `SeedMatchR` functions to examine changes in e
 ## Installation
 
 You can install the development version of SeedMatchR from [GitHub](https://github.com/) or the stable build from CRAN.
-
-``` {r eval = FALSE}
-# Install from GitHub
-install.packages("devtools")
-devtools::install_github("tacazares/SeedMatchR")
-```
 
 ```{r}
 library(SeedMatchR)

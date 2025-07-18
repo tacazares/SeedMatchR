@@ -1,0 +1,68 @@
+---
+title: "Transcript library k-mer counts with Biostrings"
+author: "Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR_sequence_kmer_counts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+```
+
+# Determine transcript library k-mer counts with Biostrings
+
+This article will show you how to determine the transcriptome k-mer counts for your transcriptome of interest. 
+
+## Find hg38 7-mer counts across canonical ENSEMBL transcripts
+
+### Load annotations
+
+```{r}
+annodb <- load_annotations("hg38", feature.type = "exons")
+```
+
+### Create data frame for mapping tx_ix to gene_id
+
+```{r}
+# Create a data frame to map tx_id to gene_id
+tx2gene <- mcols(transcripts(annodb$txdb, columns=c("tx_id", "gene_id")))
+tx2gene$gene_id <- as.character(tx2gene$gene_id)
+```
+
+### Get counts data
+
+```{r}
+# only focus on ten sequences since the run can take a while during testing. 
+exon.counts = sequence_kmer_counts(annodb$seqs[1:10], tx2gene, width = 7)
+
+exon.counts[1:3, 1:5]
+```
+
+### Convert to K-mer summary table 
+
+```{r}
+exon.binary = as.matrix(exon.counts[3:ncol(exon.counts)])
+exon.binary[exon.binary > 0] <- 1
+
+exon.gene.counts = colSums(exon.binary)
+
+exons.df = data.frame("exon.counts" = exon.gene.counts)
+
+head(exons.df)
+```
+
+
+```{r}
+hist(gene.counts, breaks = 50, xlab = "Number of genes with 7mer", col = "grey90", main = NULL)
+```
+

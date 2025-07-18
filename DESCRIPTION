@@ -1,16 +1,15 @@
 Package: SeedMatchR
-Title: Find Matches to Canonical SiRNA Seeds in Genomic Features
-Version: 1.1.1
+Title: Find siRNA Matches in Genomic Features
+Version: 2.0.0
 Authors@R: 
-    c(person("Tareian", "Cazares", , "tareian.cazares@lilly.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-4624-6156")),
-      person("Gulcin", "Ozer", , "ozer_gulcin@lilly.com", role = c("aut"),
-           comment = c(ORCID = "0000-0002-8315-8051")),
-      person("Jibo", "Wang", , , role = c("aut")),
-      person("Rick", "Higgs", , , role = c("aut")),
+    c(person("Tareian", "Cazares", email = "tareian.cazares@lilly.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4624-6156")),
+      person("Gulcin", "Ozer", email = "ozer_gulcin@lilly.com", role = c("aut"), comment = c(ORCID = "0000-0002-8315-8051")),
+      person("Pradeep", "Varathan Pugalenthi", email = "pradeepvarathan.pugalenthi@lilly.com", role = c("aut")),
+      person("Jibo", "Wang", role = c("aut")),
+      person("Rick", "Higgs", role = c("aut")),
       person("Eli Lilly and Company", role = c("cph")))
-Description: On-target gene knockdown using siRNA ideally results from binding 
-    fully complementary regions in mRNA transcripts to induce cleavage. 
+Description: On-target siRNA silencing of mRNA results from binding to
+    fully complementary regions in transcripts to induce cleavage. 
     Off-target siRNA gene knockdown can occur through several modes, one being 
     a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated 
     off-target effects occur when the ~8 nucleotides at the 5’ end of the guide 
@@ -27,32 +26,41 @@ Description: On-target gene knockdown using siRNA ideally results from binding
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 biocViews:
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
-    org.Rn.eg.db
-Config/testthat/edition: 3
+    ggseqlogo,
+    PRROC, 
+    igraph, 
+    STRINGdb, 
+    biomaRt
 Imports: 
-    dplyr,
+    AnnotationHub (>= 3.6.0),
     Biostrings,
-    ggmsa,
-    msa,
-    ggplot2,
-    utils,
-    AnnotationHub,
-    GenomeInfoDb,
+    BiocGenerics,
+    dplyr,
     GenomicFeatures,
-    cowplot,
-    testit,
-    lifecycle,
+    GenomicRanges,
+    ggplot2,
+    ensembldb,
+    methods,
+    tibble,
+    S4Vectors,
     stringr,
-    stats
+    stats,
+    XVector,
+    utils,
+    AnnotationFilter,
+    gt,
+    twosamples,
+    IRanges,
+    gtools,
+    Matrix,
+    caTools
 VignetteBuilder: knitr
 Depends: 
-    R (>= 4.1.0)
-LazyData: true
-URL: https://tacazares.github.io/SeedMatchR/, https://github.com/tacazares/SeedMatchR
-BugReports: https://github.com/tacazares/SeedMatchR/issues
+    R (>= 4.3.0)
+Config/testthat/edition: 3

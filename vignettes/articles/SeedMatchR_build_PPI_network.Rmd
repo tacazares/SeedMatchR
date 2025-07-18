@@ -1,0 +1,33 @@
+---
+title: "SeedmatchR build PPI networks"
+author: "Pradeep Pugalenthi and Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR_SearchDetails}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+```
+
+## TRRUST-network based analysis
+
+Here, we try to tackle the problem of indirect off-target and indirect on-target effects of the siRNA (and any given sequence) using experimentally validated TRRUST network to isolate the genes regulated by transcription factors which in turn are affected from siRNA introduction. The get_network_matches function is designed to calculate network matches for a given graph and gene list using a transcription network and an aggregation method. It begins by loading internal transcription network data from an R data file and creating a graph from this data using the igraph package.(https://ngdc.cncb.ac.cn/databasecommons/database/id/5213#:~:text=TRRUST%3A%20a%20reference%20database%20of%20human%20transcriptional%20regulatory,%28%29%20%7C%20190%20Citations%20%28from%20Europe%20PMC%2C%202024-08-31%29)
+
+```{r}
+genes_with_seedmatches = res$gene_id[res$mer7m8 > 0]
+
+network_matches = get_network_matches(genes_with_seedmatches, aggregator = 'mean')
+
+head(network_matches)
+```

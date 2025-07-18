@@ -3,17 +3,9 @@
 \docType{package}
 \name{SeedMatchR-package}
 \alias{SeedMatchR-package}
-\alias{_PACKAGE}
-\title{SeedMatchR: Find Matches to Canonical SiRNA Seeds in Genomic Features}
+\title{SeedMatchR: Find siRNA Matches in Genomic Features}
 \description{
-On-target gene knockdown using siRNA ideally results from binding fully complementary regions in mRNA transcripts to induce cleavage. Off-target siRNA gene knockdown can occur through several modes, one being a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated off-target effects occur when the ~8 nucleotides at the 5’ end of the guide strand, called a seed region, bind the 3’ untranslated regions of mRNA, causing reduced translation. Experiments using siRNA knockdown paired with RNA-seq can be used to detect siRNA sequences with potential off-target effects driven by the seed region. 'SeedMatchR' provides tools for exploring and detecting potential seed-mediated off-target effects of siRNA in RNA-seq experiments. 'SeedMatchR' is designed to extend current differential expression analysis tools, such as 'DESeq2', by annotating results with predicted seed matches. Using publicly available data, we demonstrate the ability of 'SeedMatchR' to detect cumulative changes in differential gene expression attributed to siRNA seed regions.
-}
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://tacazares.github.io/SeedMatchR/}
-}
-
+On-target siRNA silencing of mRNA results from binding to fully complementary regions in transcripts to induce cleavage. Off-target siRNA gene knockdown can occur through several modes, one being a seed-mediated mechanism mimicking miRNA gene regulation. Seed-mediated off-target effects occur when the ~8 nucleotides at the 5’ end of the guide strand, called a seed region, bind the 3’ untranslated regions of mRNA, causing reduced translation. Experiments using siRNA knockdown paired with RNA-seq can be used to detect siRNA sequences with potential off-target effects driven by the seed region. 'SeedMatchR' provides tools for exploring and detecting potential seed-mediated off-target effects of siRNA in RNA-seq experiments. 'SeedMatchR' is designed to extend current differential expression analysis tools, such as 'DESeq2', by annotating results with predicted seed matches. Using publicly available data, we demonstrate the ability of 'SeedMatchR' to detect cumulative changes in differential gene expression attributed to siRNA seed regions.
 }
 \author{
 \strong{Maintainer}: Tareian Cazares \email{tareian.cazares@lilly.com} (\href{https://orcid.org/0000-0003-4624-6156}{ORCID})
@@ -21,6 +13,7 @@ Useful links:
 Authors:
 \itemize{
   \item Gulcin Ozer \email{ozer_gulcin@lilly.com} (\href{https://orcid.org/0000-0002-8315-8051}{ORCID})
+  \item Pradeep Varathan Pugalenthi \email{pradeepvarathan.pugalenthi@lilly.com}
   \item Jibo Wang
   \item Rick Higgs
 }

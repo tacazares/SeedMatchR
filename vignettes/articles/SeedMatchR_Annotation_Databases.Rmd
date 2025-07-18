@@ -1,0 +1,149 @@
+---
+title: "Overview of SeedMatchR Annotation Databases"
+author: "Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR_AnnotationDatabases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE
+)
+
+library(AnnotationHub)
+library(SeedMatchR)
+
+ah <- AnnotationHub::AnnotationHub()
+```
+
+## Introduction
+
+This entry covers which annotations are available for the 3 model species used in `SeedMatchR` (human, mouse, rat). `SeedMatchR` requires information on the GTF for gene > transcript annotations as well as the sequences that correspond to the features of interest being searched. These can be generated independently by the user or they can be loaded with the `SeedMatchR::load_annotations` function. This function will load the predefined annotations based on the species of interest, the filtering criteria, and features of interest. 
+
+NOTES: 
+
+1. In order to use `rnor7`, you must have R 4.3.0 or greater installed. This is because `AnnotationHub` ≥ 3.8.0 is required. 
+2. `rnor6` and `mm10` cannot be used with the `ensembldb::TxIsCanonicalFilter` therefore the `canonical` argument for `SeedMatchR::load_annotations` must be set to `FALSE`.
+3. `rnor6` and `rnor7` cannot be used with `ensembldb::TxSupportLevelFilter`. Therefore this value should not be passed to the function `SeedMatchR::load_annotations` when working with the rat transcriptome. 
+
+## Current Annotation Options
+
+| Species | SeedMatchR arg | Reference Build | ENSEMBL Build | Release Date  | 2bit ID  | ensembldb |
+|---------|----------------|-----------------|---------------|---------------|----------|-----------|
+| Human   | hg38           | GRCh38.p13      | 109           | February 2023 | AH106283 | AH109606  |
+| Rat     | rnor6          | Rnor_v6.0       | 104           | May 2011      | AH93578  | AH95846   |
+| Rat     | rnor7          | Rnor_v7.2       | 109           | February 2023 | AH106786 | AH109732  |
+| Rat     | rnor7.113      | Rnor_v7.2       | 113           | October 2024  | AH106786 | AH119437  |
+| Mouse   | mm39           | GRCm39          | 109           | February 2023 | AH106440 | AH109655  |
+| Mouse   | mm10           | GRCm38          | 102           | October 2020  | AH88475  | AH89211   |
+
+## Functions for working with annotations and building transcriptomes for queries
+
+### Load data for Rnor7
+
+```{r}
+annodb <- load_annotations("rnor7", feature.type = "exons", protein.coding = FALSE, canonical = F, return_gene_name = F)
+```
+
+## How annotations were retrieved
+
+### Selecting GTF
+
+The GTF files were selected to have the full DNA sequence visible without any type of masking of repeats. These files have names like `Mus_musculus.GRCm39.109.gtf `. 
+
+### Selecting `.2bit` DNA sequences
+
+The `.2bit` files were selected to have the full DNA sequence visible without any type of masking of repeats. These files have names like `Homo_sapiens.GRCh38.dna.primary_assembly.2bit `. For Rat, there was no file that was named as the `dna.primary_assembly`, instead we had to choose from `dna_sm.primary_assembly` which is the soft-masked version of the genome that accounts for repeats. 
+
+## Code for querying `AnnotationHub` for references
+
+### Hg38
+
+#### `.2bit`
+
+```{r}
+AnnotationHub::query(ah, c("GRCh38", "2bit"))
+```
+
+#### `ensembldb`
+
+##### version 110 for GRCh38.p13
+
+```{r}
+AnnotationHub::query(ah, c("GRCh38", "110"))
+```
+
+##### Version 80 for GRCh38.p2
+
+```{r}
+AnnotationHub::query(ah, c("GRCh38", "80"))
+```
+
+### Rat
+
+#### `.2bit`
+
+##### Rnor6
+
+```{r}
+query(ah, c("Rnor", "release-104"))
+```
+
+##### Rnor7
+
+```{r}
+query(ah, c("Rattus", ".2bit"))
+```
+
+#### `ensembldb`
+
+##### Rnor6
+
+```{r}
+query(ah, c("rat", 104, "ensdb"))
+```
+
+##### Rnor7
+
+```{r}
+query(ah, c("rat", 109, "ensdb"))
+```
+
+### Mouse
+
+#### `.2bit`
+
+##### mm39 or GCRm39
+
+```{r}
+query(ah, c("GRCm39", ".2bit"))
+```
+
+##### mm10 or GRCm38
+
+```{r}
+query(ah, c("GRCm38", ".2bit"))
+```
+
+#### `ensembldb`
+
+##### mm39 or GRCm39
+
+```{r}
+query(ah, c("mus", 104, "ensdb"))
+```
+
+##### mm10 or GRCm38
+
+```{r}
+query(ah, c("mus", 109, "ensdb"))
+```
+
+```{r}
+sessionInfo() 
+```

@@ -1,0 +1,102 @@
+---
+title: "SeedMatchR output formats"
+author: "Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR output formats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+```
+
+This example uses the siRNA sequence, D1, targeting the Ttr gene in rat liver from the publication:
+
+> Schlegel MK, Janas MM, Jiang Y, Barry JD, Davis W, Agarwal S, Berman D, Brown CR, Castoreno A, LeBlanc S, Liebow A, Mayo T, Milstein S, Nguyen T, Shulga-Morskaya S, Hyde S, Schofield S, Szeto J, Woods LB, Yilmaz VO, Manoharan M, Egli M, Charissé K, Sepp-Lorenzino L, Haslett P, Fitzgerald K, Jadhav V, Maier MA. From bench to bedside: Improving the clinical safety of GalNAc-siRNA conjugates using seed-pairing destabilization. Nucleic Acids Res. 2022 Jul 8;50(12):6656-6670. doi: 10.1093/nar/gkac539. PMID: 35736224; PMCID: PMC9262600.
+
+The guide sequence of interest is 23 bp long and oriented 5' -\> 3'.
+
+```{r}
+# siRNA sequence of interest targeting a 23 bp region of the Ttr gene
+guide.seq = "UUAUAGAGCAAGAACACUGUUUU"
+```
+
+#### Load annotation databases
+
+```{r}
+annodb = load_annotations(reference.name = "rnor6", canonical = FALSE, min.feature.width = 8, longest.utr = T)
+```
+
+### Prepare DESEQ2 Results
+
+The DESeq2 results are available through the names `Schlegel_2022_Ttr_D1_30mkg`, `Schlegel_2022_Ttr_D4_30mkg` and `Schlegel_2022_Ttr_D1_10mkg`. The data set name is long, so it will be renamed to `res`. The DESeq2 results file is then filtered. The function `filter_res()` can be used to filter a results file by log2FoldChange, padj, baseMean, and remove NA entries.
+
+```{r echo = T, results = 'hide', message=FALSE, warning=FALSE, error=FALSE}
+get_example_data("sirna")
+
+sirna.data = load_example_data("sirna")
+
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
+
+res = filter_res(res, fdr_cutoff=1, fc_cutoff=0)
+```
+
+### DESeq2 column output
+
+```{r}
+res.de = SeedMatchR(res = res, 
+                 seqs = annodb$seqs, 
+                 sequence = guide.seq, 
+                 seed.name = "mer7m8")
+
+head(res.de)
+```
+
+### Data frame output
+
+You can perform a seed match for a single seed using the `SeedMatchR()` function. 
+
+```{r}
+res.df = SeedMatchR(seqs = annodb$seqs, 
+                 sequence = guide.seq, 
+                 seed.name = "mer7m8", 
+                 res.format = "data.frame")
+
+head(res.df)
+```
+
+### GRanges output
+
+You can perform a seed match for a single seed using the `SeedMatchR()` function. 
+
+```{r}
+res.gr = SeedMatchR(seqs = annodb$seqs, 
+                 sequence = guide.seq, 
+                 seed.name = "mer7m8", 
+                 res.format = "granges")
+
+head(res.gr)
+```
+
+### IRanges output
+
+You can perform a seed match for a single seed using the `SeedMatchR()` function. 
+
+```{r}
+res.ir = SeedMatchR(res = res, 
+                 seqs = annodb$seqs, 
+                 sequence = guide.seq, 
+                 seed.name = "mer7m8", 
+                 res.format = "iranges")
+
+head(res.ir)
+```

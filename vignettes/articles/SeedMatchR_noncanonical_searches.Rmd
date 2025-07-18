@@ -1,0 +1,54 @@
+---
+title: "SeedMatchR_noncanonical_searches"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+```
+
+## Running with wobbles and bulges
+
+```{r}
+wobbles_bulges_matches = run_wobble_bulges_pipeline(guide.seq = guide.seq,
+                                                    res =res,features = annodb$seqs,
+                                                    bulges_lim = 1)
+  
+head(wobbles_bulges_matches)
+```
+
+
+## 3`-compensatory non-canonical matches
+
+The get_compensatory_sequences function is designed to identify 3' compensatory sequences for a given siRNA sequence. It takes several parameters, including the guide sequence (guide.seq), seed sequence (seed), a set of DNA sequences (sequences), and various limits and mismatch allowances. The function returns a data frame containing the identified compensatory regions.
+
+```{r}
+
+comp_matches = get_compensatory_sequences(guide.seq = guide.seq,
+                                                seed = get_seed(guide.seq, 'mer7m8')$Target.Seq,
+                                                sequences = annodb$seqs,
+                                                compensatory_region_length_min = 6,
+                                                limit = 100)
+
+head(comp_matches)
+```
+
+```{r, fig.height=5, fig.width=5, out.retina=1}
+comp.list = unique(comp_matches$TX_ID)
+
+# Gene set 2
+background.list = res$gene_id[!(res$gene_id %in% comp.list)]
+
+ecdf.results = deseq_fc_ecdf(res, 
+                             list("Background" = background.list, 
+                                  "Compensetory Matches" = comp.list))
+
+ecdf.results$plot
+```

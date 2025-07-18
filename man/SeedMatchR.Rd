@@ -5,51 +5,87 @@
 \title{Find seed matches in genomic features}
 \usage{
 SeedMatchR(
-  res,
-  gtf,
   seqs,
   sequence,
+  res = NULL,
+  res.format = c("DESEQ2", "data.frame", "granges", "iranges"),
   seed.name = "mer7m8",
   col.name = NULL,
-  mismatches = 0,
-  indels = FALSE,
-  tx.id.col = TRUE
+  start.pos = NULL,
+  stop.pos = NULL,
+  match.df = NULL,
+  sirna.name = NULL,
+  shared_genes = TRUE,
+  allow_wobbles = FALSE,
+  get_seed = TRUE,
+  max.mismatch = 0,
+  with.indels = TRUE,
+  fixed = TRUE
 )
 }
 \arguments{
-\item{res}{A DESeq2 results \code{data.frame}}
-
-\item{gtf}{GTF file used to map features to genes. The object must have
-columns transcript_id and gene_id}
-
-\item{seqs}{The \code{DNAStringSet} object with sequence information
+\item{seqs}{The \link[Biostrings:XStringSet-class]{Biostrings::DNAStringSet} object with sequence information
 for features. The names of the sequences should be the transcript names.}
 
-\item{sequence}{The \code{DNAString} guide sequence oriented 5' > 3'.}
+\item{sequence}{The \link[Biostrings:DNAString-class]{Biostrings::DNAString} guide sequence oriented 5' > 3'.}
 
-\item{seed.name}{The name of specific seed to extract. Options are:  mer8,
-mer7A1, mer7m8, mer6}
+\item{res}{An optional \code{DESEQ2} results \code{data.frame}. If provided, an
+additional column with the seed match count will be added to the
+\code{data.frame}. If not provided, \code{SeedMatchR} will return the interval ranges
+for each match for the input \link[Biostrings:XStringSet-class]{Biostrings::DNAStringSet}.}
 
-\item{col.name}{The string to use for the column name. Defaults to seed name}
+\item{res.format}{Format for the returned results. Either 'data.frame', 'DESEQ2', 'iranges', or 'granges'}
 
-\item{mismatches}{The number of mismatches to allow in search}
+\item{seed.name}{The seed name to be reported in the \code{data.frame} column
+called \code{seed}}
 
-\item{indels}{Whether to allow indels in search}
+\item{col.name}{The optional name of the column of match counts. Will default
+to \code{seed.name} if not set}
 
-\item{tx.id.col}{Use the transcript_id column instead of gene_id}
+\item{start.pos}{The seed start position}
+
+\item{stop.pos}{The seed stop position}
+
+\item{match.df}{Optional: If a matches df is provided the results of the
+current search will be added with rbind.}
+
+\item{sirna.name}{Optional siRNA name. A new column called \code{sirna.name} will be added to \code{data.frame}}
+
+\item{shared_genes}{If true, the tx set is reduced to overlapping
+features in both the sequences db and in the DE data.}
+
+\item{allow_wobbles}{If True, allow G:U wobbles by replacing U with Y.}
+
+\item{get_seed}{If True, parse the input character vector and return get_seed object.}
+
+\item{max.mismatch}{Number of allowed mismatches or the total edit distance}
+
+\item{with.indels}{If True, include indels}
+
+\item{fixed}{Require that each sequence symbol matches when searching. Should be FALSE if using wobbles.}
 }
 \value{
-A modified DESeq2 results dataframe that has column named after the
-seed of choice representing the number of match counts.
+Either a 'data.frame', 'DESEQ2', 'iranges', or 'granges' object based on res.format input
 }
 \description{
-Find seed matches in a \code{DNAStringSet} object of
-sequences. This function will use \code{get.seed} extract the seed sequence
-from the guide sequence. The seed is then searched across all rows of the
-\code{DNAStringSet} object using \code{vpatterncount}.
+Find seed matches in a \link[Biostrings:XStringSet-class]{Biostrings::DNAStringSet} object of
+sequences.
 
-This function returns the input DESeq2 results \code{data.frame} with an
-additional column that contains the counts for the input \code{seed.name}.
+This function will use \code{get.seed} to extract the seed sequence
+from the guide sequence.
+
+There are two modes for running \code{SeedMatchR}. The different modes ares set by
+the \code{res.format} argument with the options \code{DESEQ2} or \code{data.frame}.
+
+The \code{DESEQ2} mode will match the input seed across all rows of the
+\link[Biostrings:XStringSet-class]{Biostrings::DNAStringSet} object using \code{\link[Biostrings:matchPattern]{Biostrings::vcountPattern()}}. These matches are then
+aggregated and matched to genes in the \code{DESEQ2} results \code{data.frame}. Counts
+are reported as an additional column with the seed count. By default, this
+mode will be run if a \code{DESEQ2} results \code{data.frame} is provided to the \code{res} argument.
+
+The \code{data.frame} mode will return a \code{data.frame} with the interval ranges
+associated with matches from \code{\link[Biostrings:matchPattern]{Biostrings::vmatchPattern()}}. This is the default mode run
+when no \code{DESEQ2} results are provided.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -57,16 +93,18 @@ library(dplyr)
 
 seq = "UUAUAGAGCAAGAACACUGUUUU"
 
-anno.db = load_species_anno_db("human")
+anno.db = load_annotations("rnor7")
 
-features = get_feature_seqs(anno.db$tx.db, anno.db$dna)
+get_example_data("sirna")
 
-# Load test data
-res <- Schlegel_2022_Ttr_D1_30mkg
+sirna.data = load_example_data("sirna")
+
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
 
 # Filter DESeq2 results for SeedMatchR
-res = filter_deseq(res, fdr.cutoff=1, fc.cutoff=0, rm.na.log2fc = TRUE)
+res = filter_res(res, fdr.cutoff=1, fc.cutoff=0, rm.na.log2fc = TRUE)
 
-res = SeedMatchR(res, anno.db$gtf, features$seqs, seq, "mer7m8")
+res = SeedMatchR(res = res, seqs = anno.db$seqs,
+sequence = guide.seq, seed.name = "mer7m8")
 \dontshow{\}) # examplesIf}
 }

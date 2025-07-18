@@ -1,0 +1,125 @@
+---
+title: "SeedMatchR ECDF Statistics"
+author: "Tareian Cazares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR_ECDFStats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+```
+
+# Examples of ECDF statisics
+
+There are a variety of approaches that can be used to calculate the difference between two distributions. Historically the KS Dstat has been used for miRNA related studies, but we have also explored other statistics such as the Wasserstein. The differences are outlined in the [TwoSamples package]("https://twosampletest.com/reference/two_sample.html#ref-usage").
+
+## Example workflow
+
+```{r}
+# siRNA sequence of interest targeting a 23 bp region of the Ttr gene
+guide.seq = "UUAUAGAGCAAGAACACUGUUUU"
+```
+
+### Load example DESeq2 data
+
+```{r}
+get_example_data("sirna")
+
+sirna.data = load_example_data("sirna")
+
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
+
+res = filter_res(res)
+```
+
+### Load Annotations
+
+We will next load the annotations for rat. This step is further described in the vignette.
+
+```{r echo = T, results = 'hide', message=FALSE, warning=FALSE, error=FALSE}
+# Load the species specific annotation database object
+annodb = load_annotations(reference.name = "rnor6", canonical = FALSE, min.feature.width = 8, longest.utr = T)
+```
+
+### Search features for seed matches
+
+```{r}
+res = SeedMatchR(res = res, 
+                 seqs = annodb$seqs, 
+                 sequence = guide.seq, 
+                 seed.name = "mer7m8")
+
+head(res, 2)
+```
+
+### Extract gene matches for each criteria and their fold changes
+
+```{r}
+# Gene set 1 
+mer7m8.list = res$gene_id[res$mer7m8 >= 1]
+
+# Gene set 2
+background.list = res$gene_id[res$mer7m8 == 0]
+
+# Gene set 1 FC
+mer7m8.FC = res$log2FoldChange[res$mer7m8 >= 1]
+
+# Gene set 2 FC
+background.FC = res$log2FoldChange[res$mer7m8 == 0]
+```
+
+### KS statistic
+
+```{r, fig.height = 5.5, fig.width=5}
+ecdf.results = deseq_fc_ecdf(res, 
+                             list("Background" = background.list, 
+                                  "mer7m8" = mer7m8.list), 
+                             stats_test = "KS")
+
+ecdf.results$plot
+```
+
+### Wasserstein statistic
+
+```{r, fig.height = 5.5, fig.width=5}
+ecdf.results = deseq_fc_ecdf(res, 
+                             list("Background" = background.list, 
+                                  "mer7m8" = mer7m8.list), 
+                             stats_test = "Wass")
+
+ecdf.results$plot
+```
+
+### DTS
+
+```{r, fig.height = 5.5, fig.width=5}
+ecdf.results = deseq_fc_ecdf(res, 
+                             list("Background" = background.list, 
+                                  "mer7m8" = mer7m8.list), 
+                             stats_test = "DTS"
+                             )
+
+ecdf.results$plot
+
+```
+
+### Wilcoxen statistic
+
+```{r, fig.height = 5.5, fig.width=5}
+ecdf.results = deseq_fc_ecdf(res, 
+                             list("Background" = background.list, 
+                                  "mer7m8" = mer7m8.list), 
+                             stats_test = "Wilcoxen")
+
+ecdf.results$plot
+```

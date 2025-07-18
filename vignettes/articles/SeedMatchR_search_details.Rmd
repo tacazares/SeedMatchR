@@ -1,0 +1,173 @@
+---
+title: "SeedMatchR Search Details"
+author: "Tareian Cazares, Pradeep Pugalenthi, and Gulcin Ozer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SeedMatchR_SearchDetails}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  eval = TRUE
+)
+```
+
+```{r setup}
+library(SeedMatchR)
+library(Biostrings)
+```
+
+## Overview
+
+`SeedMatchR` uses `Biostrings::matchPattern` variants for searching sequences. This article describes different parameters of the search and their results. 
+
+## Load example data
+
+This example uses the siRNA sequence, D1, targeting the Ttr gene in rat liver from the publication:
+
+    Schlegel MK, Janas MM, Jiang Y, Barry JD, Davis W, Agarwal S, Berman D, Brown CR, Castoreno A, LeBlanc S, Liebow A, Mayo T, Milstein S, Nguyen T, Shulga-Morskaya S, Hyde S, Schofield S, Szeto J, Woods LB, Yilmaz VO, Manoharan M, Egli M, Charissé K, Sepp-Lorenzino L, Haslett P, Fitzgerald K, Jadhav V, Maier MA. From bench to bedside: Improving the clinical safety of GalNAc-siRNA conjugates using seed-pairing destabilization. Nucleic Acids Res. 2022 Jul 8;50(12):6656-6670. doi: 10.1093/nar/gkac539. PMID: 35736224; PMCID: PMC9262600.
+
+### Load sequence data
+
+The guide sequence of interest is 23 bp long and oriented 5' -\> 3'.
+
+```{r}
+# siRNA sequence of interest targeting a 23 bp region of the Ttr gene
+guide.seq = "UUAUAGAGCAAGAACACUGUUUU"
+
+# siRNA target sequence
+ttr.target = get_seed(guide.seq = guide.seq, seed.name = "Full")$Target.Seq
+
+ttr.target.wobble = get_seed(guide.seq = guide.seq, seed.name = "Full", allow_wobbles = TRUE)$Target.Seq
+
+```
+
+### Load annotation databases
+
+```{r}
+annodb = load_annotations(reference.name = "rnor6", canonical = FALSE, min.feature.width = 8, longest.utr = T)
+```
+
+### Load example transcript
+
+We will use `SeedMatchR` to load an example transcript for Ttr in rats. This sequence is the target of an siRNA that is used in this package. 
+
+```{r}
+# Original target sequence
+ttr.base.target = DNAString("AAAACAGTGTTCTTGCTCTATAA")
+
+# Ttr + 1 insert @ 12
+ttr.ins.target = DNAString("AAAACAGTGTTGCTTGCTCTATAA")
+
+# Ttr + 4 mm @ 12-15 + 1 deletion @ 21 + 1 insert @ 4
+ttr.mm4.in.del.target = DNAString("AAATACAGTGTTGCCACTCTAAA")
+
+# Ttr + wobble on mRNA
+ttr.wobble.mrna = DNAString("AAAACAGUGTTCTTGCTCTATAA")
+
+```
+
+### Load example DE data
+
+```{r}
+get_example_data("sirna")
+
+sirna.data = load_example_data("sirna")
+
+res <- sirna.data$Schlegel_2022_Ttr_D1_30mkg
+
+res = filter_res(res, fdr_cutoff=1, fc_cutoff=0)
+```
+
+## Search variants
+
+### Base Ttr example
+
+We expect to see a single complete match
+
+```{r}
+matchPattern(ttr.target, ttr.base.target, max.mismatch = 0, with.indels = F)
+```
+
+### Ttr with insertion
+
+We expect the match not to be found without the proper flags. 
+
+```{r}
+matchPattern(ttr.target, ttr.ins.target, max.mismatch = 0, with.indels = F)
+```
+
+We expect this search to have no matches despite the indel flag since the max.mismatch argument is at 0. 
+
+```{r}
+matchPattern(ttr.target, ttr.ins.target, max.mismatch = 0, with.indels = T)
+```
+
+We expect there to be no match since there is no indels allowed, but we still allow for mismatches. 
+
+```{r}
+matchPattern(ttr.target, ttr.ins.target, max.mismatch = 1, with.indels = F)
+```
+
+We expect the search to find 1 match since max.mismatch is set to 1 and indels are allowed. 
+
+```{r}
+matchPattern(ttr.target, ttr.ins.target, max.mismatch = 1, with.indels = T)
+```
+
+## Testing multiple mismatches and indels and how they are reported
+
+The total edit distance from the original sequence is 6 (4 mismatches, 1 insertion, 1 deletion). We want to see how these different parameters are counted in the max.mismatch category with indels. 
+
+We expect no matches.
+
+```{r}
+matchPattern(ttr.target, ttr.mm4.in.del.target, max.mismatch = 4, with.indels = F)
+```
+
+We expect no matches. 
+
+```{r}
+matchPattern(ttr.target, ttr.mm4.in.del.target, max.mismatch = 4, with.indels = T)
+```
+
+We expect no matches. 
+
+```{r}
+matchPattern(ttr.target, ttr.mm4.in.del.target, max.mismatch = 6, with.indels = F)
+```
+
+We expect 1 match. 
+
+```{r}
+matchPattern(ttr.target, ttr.mm4.in.del.target, max.mismatch = 6, with.indels = T)
+```
+
+```{r}
+vcountPattern(ttr.target, DNAStringSet(ttr.mm4.in.del.target), max.mismatch = 6, with.indels = T)
+```
+
+## Testing how wobbles are reported
+
+```{r}
+ttr.target.wobble
+```
+
+
+```{r}
+ttr.base.target
+```
+
+```{r}
+ttr.wobble.mrna
+```
+
+
+```{r}
+matchPattern(ttr.target.wobble, ttr.base.target, max.mismatch = 1)
+```
+
